@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>SperNew X — CYBER EDITION</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #00e5cc;
+  --teal2: #00b8a6;
+  --teal3: rgba(0,229,204,0.15);
+  --teal4: rgba(0,229,204,0.06);
+  --gold: #f5c518;
+  --gold2: rgba(245,197,24,0.18);
+  --purple: #7b5ea7;
+  --pink: #ff4dbd;
+  --bg: #080c10;
+  --bg2: #0c1118;
+  --bg3: #101822;
+  --card: #0e1520;
+  --card2: #121c28;
+  --border: rgba(0,229,204,0.1);
+  --border2: rgba(0,229,204,0.25);
+  --text: #d4e8f0;
+  --text2: #7a9bb5;
+  --text3: #3a5570;
+  --nav-h: 68px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --glow-t: 0 0 12px rgba(0,229,204,0.6), 0 0 30px rgba(0,229,204,0.2);
+  --glow-g: 0 0 12px rgba(245,197,24,0.5), 0 0 30px rgba(245,197,24,0.15);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;}
+
+/* NOISE OVERLAY */
+body::before{content:’’;position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.025;
+background-image:url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’/%3E%3C/svg%3E”);
+background-size:200px;}
+
+/* GRADIENT AMBIENT */
+body::after{content:’’;position:fixed;inset:0;z-index:-1;pointer-events:none;
+background:radial-gradient(ellipse 80% 50% at 10% 0%,rgba(0,229,204,0.04) 0%,transparent 60%),
+radial-gradient(ellipse 60% 40% at 90% 100%,rgba(123,94,167,0.05) 0%,transparent 60%),
+radial-gradient(ellipse 40% 60% at 50% 50%,rgba(245,197,24,0.02) 0%,transparent 70%);}
+
+/* ═══ SPLASH ═══ */
+#splash{position:fixed;inset:0;z-index:1000;background:var(–bg);
+display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;}
+.splash-hex{position:relative;width:110px;height:110px;margin-bottom:28px;}
+.splash-hex svg{width:100%;height:100%;}
+.hex-spin{animation:hexSpin 3s linear infinite;}
+.hex-spin2{animation:hexSpin 5s linear infinite reverse;opacity:.5;}
+@keyframes hexSpin{to{transform:rotate(360deg);transform-origin:50px 50px;}}
+.splash-logo{font-family:‘Syne’,sans-serif;font-size:42px;font-weight:800;letter-spacing:6px;
+color:var(–teal);text-shadow:var(–glow-t);margin-bottom:6px;}
+.splash-sub{font-family:‘JetBrains Mono’,monospace;font-size:11px;letter-spacing:8px;
+color:var(–text2);margin-bottom:32px;}
+.splash-progress-wrap{width:260px;}
+.splash-track{height:1px;background:var(–border);border-radius:1px;overflow:visible;position:relative;}
+.splash-fill{height:100%;background:var(–teal);border-radius:1px;width:0%;transition:width .1s linear;
+box-shadow:0 0 10px var(–teal);}
+.splash-fill::after{content:’’;position:absolute;right:-1px;top:-3px;bottom:-3px;width:3px;background:var(–teal);border-radius:2px;box-shadow:0 0 12px var(–teal);}
+.splash-log{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–text3);
+letter-spacing:1px;margin-top:14px;text-align:center;height:16px;}
+.splash-grid-bg{position:absolute;inset:0;pointer-events:none;
+background-image:linear-gradient(var(–border) 1px,transparent 1px),linear-gradient(90deg,var(–border) 1px,transparent 1px);
+background-size:60px 60px;mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black 0%,transparent 70%);}
+
+/* ═══ APP ═══ */
+#app{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden;}
+
+/* TOPBAR */
+.topbar{height:56px;min-height:56px;display:flex;align-items:center;justify-content:space-between;
+padding:0 18px;background:rgba(8,12,16,0.95);border-bottom:1px solid var(–border);
+position:relative;z-index:100;backdrop-filter:blur(20px);}
+.topbar::after{content:’’;position:absolute;bottom:-1px;left:0;right:0;height:1px;
+background:linear-gradient(90deg,transparent,var(–teal),var(–gold),var(–teal),transparent);opacity:.4;}
+.logo-mark{display:flex;align-items:center;gap:10px;}
+.logo-hex{width:28px;height:28px;flex-shrink:0;}
+.logo-text{font-family:‘Syne’,sans-serif;font-size:17px;font-weight:800;letter-spacing:3px;color:var(–teal);
+text-shadow:0 0 14px rgba(0,229,204,0.6);}
+.logo-edition{font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–gold);letter-spacing:2px;
+background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.3);padding:2px 7px;border-radius:4px;}
+.topbar-right{display:flex;align-items:center;gap:10px;}
+.conn-badge{display:flex;align-items:center;gap:5px;font-family:‘JetBrains Mono’,monospace;font-size:9px;
+color:var(–teal);letter-spacing:1px;}
+.conn-dot{width:6px;height:6px;border-radius:50%;background:var(–teal);
+box-shadow:0 0 8px var(–teal);animation:connPulse 2s ease-in-out infinite;}
+@keyframes connPulse{0%,100%{opacity:1}50%{opacity:.3}}
+.tier-tag{font-family:‘JetBrains Mono’,monospace;font-size:8px;font-weight:700;letter-spacing:2px;
+padding:3px 10px;border-radius:20px;background:var(–teal4);border:1px solid var(–border2);color:var(–teal);}
+.tier-tag.vip-tag{background:var(–gold2);border-color:rgba(245,197,24,0.4);color:var(–gold);}
+
+/* PAGES */
+.pages{flex:1;overflow:hidden;position:relative;}
+.page{display:none;position:absolute;inset:0;overflow:hidden;}
+.page.active{display:flex;flex-direction:column;}
+.pscroll{flex:1;overflow-y:auto;overflow-x:hidden;
+padding:16px 14px calc(var(–nav-h) + var(–safe-bottom) + 16px);
+-webkit-overflow-scrolling:touch;}
+.pscroll::-webkit-scrollbar{width:2px;}
+.pscroll::-webkit-scrollbar-thumb{background:var(–border2);border-radius:2px;}
+
+/* SECTION TITLES */
+.sec-title{font-family:‘Syne’,sans-serif;font-size:22px;font-weight:800;color:var(–teal);
+letter-spacing:2px;text-shadow:var(–glow-t);}
+.sec-sub{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–text3);letter-spacing:3px;margin-top:3px;}
+.sec-header{margin-bottom:20px;}
+.label{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text3);
+letter-spacing:3px;text-transform:uppercase;margin:18px 0 10px;}
+
+/* CARDS */
+.card{background:var(–card);border:1px solid var(–border);border-radius:16px;
+position:relative;overflow:hidden;}
+.card::before{content:’’;position:absolute;top:0;left:20%;right:20%;height:1px;
+background:linear-gradient(90deg,transparent,var(–teal3),transparent);}
+.card-inner{padding:16px;}
+
+/* ═══ HOME PAGE ═══ */
+.hero-banner{background:linear-gradient(135deg,rgba(0,229,204,0.05) 0%,rgba(123,94,167,0.05) 100%);
+border:1px solid var(–border2);border-radius:18px;padding:20px;margin-bottom:14px;
+position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;}
+.hero-banner::before{content:’’;position:absolute;top:-40px;right:-40px;width:200px;height:200px;
+border-radius:50%;background:radial-gradient(circle,rgba(0,229,204,0.06),transparent);pointer-events:none;}
+.hero-text{}
+.hero-eyebrow{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–gold);letter-spacing:4px;margin-bottom:6px;}
+.hero-title{font-family:‘Syne’,sans-serif;font-size:24px;font-weight:800;color:var(–text);line-height:1.1;}
+.hero-title em{color:var(–teal);font-style:normal;text-shadow:0 0 10px rgba(0,229,204,0.5);}
+.hero-desc{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–text3);margin-top:8px;line-height:1.6;}
+.boost-orb{width:70px;height:70px;border-radius:50%;flex-shrink:0;cursor:pointer;
+background:conic-gradient(from 0deg,var(–teal),var(–gold),var(–teal));
+display:flex;align-items:center;justify-content:center;position:relative;
+animation:orbRotate 4s linear infinite;transition:transform .2s;}
+.boost-orb::before{content:’’;position:absolute;inset:2px;border-radius:50%;background:var(–card);}
+.boost-orb:active{transform:scale(.9);}
+.boost-orb-icon{position:relative;z-index:1;text-align:center;}
+.boost-orb-icon svg{display:block;}
+.boost-orb-icon span{font-family:‘JetBrains Mono’,monospace;font-size:7px;color:var(–teal);letter-spacing:1px;margin-top:2px;display:block;}
+@keyframes orbRotate{to{filter:hue-rotate(60deg);}}
+
+/* METRIC GRID */
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.metric-card{background:var(–card);border:1px solid var(–border);border-radius:14px;padding:14px;
+position:relative;overflow:hidden;cursor:default;}
+.metric-card::after{content:’’;position:absolute;bottom:0;left:0;right:0;height:2px;
+background:linear-gradient(90deg,transparent,var(–teal),transparent);opacity:0;transition:opacity .3s;}
+.metric-card:hover::after{opacity:1;}
+.m-label{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text3);letter-spacing:3px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.m-dot{width:5px;height:5px;border-radius:50%;background:var(–teal);}
+.m-value{font-family:‘Syne’,sans-serif;font-size:30px;font-weight:800;color:var(–teal);
+line-height:1;text-shadow:0 0 16px rgba(0,229,204,0.5);}
+.m-unit{font-family:‘JetBrains Mono’,monospace;font-size:12px;color:var(–text3);}
+.m-bar{height:2px;background:rgba(0,229,204,0.08);border-radius:2px;margin:10px 0 6px;overflow:hidden;}
+.m-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(–teal2),var(–teal));transition:width 1s ease;position:relative;}
+.m-fill::after{content:’’;position:absolute;right:0;top:-2px;bottom:-2px;width:3px;border-radius:2px;background:var(–teal);box-shadow:0 0 8px var(–teal);}
+.m-status{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text3);}
+.m-status.ok{color:var(–teal);}
+.m-status.warn{color:var(–gold);}
+.m-status.crit{color:#ff4d4d;}
+
+/* SCORE STRIP */
+.score-strip{display:flex;align-items:center;gap:16px;
+background:linear-gradient(135deg,rgba(0,229,204,0.04),rgba(123,94,167,0.04));
+border:1px solid var(–border2);border-radius:16px;padding:16px;margin-bottom:14px;}
+.score-ring-wrap{flex-shrink:0;}
+.score-info{flex:1;}
+.score-label{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text3);letter-spacing:3px;margin-bottom:4px;}
+.score-num{font-family:‘Syne’,sans-serif;font-size:48px;font-weight:800;color:var(–teal);line-height:1;
+text-shadow:0 0 20px rgba(0,229,204,0.6);}
+.score-grade{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–gold);letter-spacing:2px;margin-top:4px;}
+
+/* QUICK TILES */
+.tile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;}
+.tile{display:flex;flex-direction:column;align-items:center;gap:5px;
+background:var(–card);border:1px solid var(–border);border-radius:12px;
+padding:12px 4px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.tile::before{content:’’;position:absolute;inset:0;background:var(–teal3);opacity:0;transition:opacity .2s;}
+.tile:hover::before{opacity:1;}
+.tile:active{transform:scale(.93);}
+.tile-icon{font-size:18px;position:relative;z-index:1;}
+.tile-label{font-family:‘JetBrains Mono’,monospace;font-size:7px;color:var(–text2);letter-spacing:1px;position:relative;z-index:1;text-align:center;}
+
+/* SYSTEM STATS BARS */
+.sys-bars{background:var(–card);border:1px solid var(–border);border-radius:14px;padding:14px;margin-bottom:14px;}
+.sys-title{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–teal);letter-spacing:3px;margin-bottom:12px;}
+.sbar-row{display:flex;align-items:center;gap:8px;margin-bottom:9px;}
+.sbar-row:last-child{margin-bottom:0;}
+.sbar-label{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text2);width:72px;flex-shrink:0;}
+.sbar-track{flex:1;height:3px;background:rgba(0,229,204,0.07);border-radius:2px;overflow:hidden;}
+.sbar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(–teal2),var(–teal));transition:width .8s ease;}
+.sbar-val{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–teal);width:32px;text-align:right;}
+
+/* POWER MODE */
+.power-card{background:var(–card);border:1px solid var(–border);border-radius:14px;padding:14px;margin-bottom:14px;}
+.power-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.power-title{font-family:‘Syne’,sans-serif;font-size:13px;font-weight:700;color:var(–text);}
+.power-sub{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text3);margin-top:2px;}
+.power-modes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+.pmode{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;
+border-radius:10px;cursor:pointer;border:1px solid var(–border);background:var(–card2);transition:all .2s;}
+.pmode.active{background:rgba(0,229,204,0.08);border-color:var(–teal);box-shadow:0 0 14px rgba(0,229,204,0.2);}
+.pmode-icon{font-size:16px;}
+.pmode-name{font-family:‘JetBrains Mono’,monospace;font-size:7px;color:var(–text2);letter-spacing:1px;}
+
+/* NETWORK CARD */
+.net-card{background:var(–card);border:1px solid var(–border);border-radius:14px;padding:14px;margin-bottom:14px;}
+.net-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;}
+.net-item{text-align:center;}
+.net-icon{font-family:‘Syne’,sans-serif;font-size:20px;font-weight:800;color:var(–teal);text-shadow:var(–glow-t);}
+.net-val{font-family:‘JetBrains Mono’,monospace;font-size:11px;color:var(–text);margin-top:2px;}
+.net-lbl{font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–text3);margin-top:2px;}
+
+/* MINI TERMINAL */
+.terminal{background:#060a0e;border:1px solid rgba(0,229,204,0.15);border-radius:12px;padding:12px;margin-bottom:14px;}
+.term-header{display:flex;align-items:center;gap:6px;margin-bottom:10px;}
+.term-dot{width:7px;height:7px;border-radius:50%;}
+.term-dot.r{background:#ff5f5f;}
+.term-dot.y{background:#ffd060;}
+.term-dot.g{background:#00e5cc;box-shadow:0 0 6px rgba(0,229,204,0.8);}
+.term-title{font-family:‘JetBrains Mono’,monospace;font-size:8px;color:rgba(0,229,204,0.3);letter-spacing:3px;margin-left:4px;}
+.term-lines{display:flex;flex-direction:column;gap:4px;max-height:90px;overflow:hidden;}
+.tline{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:rgba(0,229,204,0.45);letter-spacing:.5px;}
+.tline.active{color:var(–teal);}
+.tline.done{color:rgba(0,229,204,0.2);}
+.tcursor{display:inline-block;width:7px;height:1px;background:var(–teal);animation:cur 1s infinite;vertical-align:middle;margin-left:2px;}
+@keyframes cur{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ═══ FEATURES ═══ */
+.feat-badge-row{display:flex;align-items:center;gap:8px;margin:14px 0 10px;}
+.badge{font-family:‘JetBrains Mono’,monospace;font-size:8px;letter-spacing:2px;
+padding:3px 10px;border-radius:4px;}
+.badge-free{background:rgba(0,229,204,0.08);border:1px solid var(–border2);color:var(–teal);}
+.badge-vip{background:var(–gold2);border:1px solid rgba(245,197,24,0.35);color:var(–gold);}
+.feat-list{display:flex;flex-direction:column;gap:8px;}
+.feat-list.locked{opacity:.35;pointer-events:none;filter:grayscale(.7);}
+.feat-item{display:flex;align-items:center;gap:12px;background:var(–card);
+border:1px solid var(–border);border-radius:12px;padding:12px 14px;transition:all .2s;}
+.feat-item:hover{border-color:var(–border2);}
+.feat-ico{font-size:19px;width:26px;text-align:center;}
+.feat-body{flex:1;}
+.feat-name{font-family:‘Syne’,sans-serif;font-size:12px;font-weight:600;color:var(–text);}
+.feat-desc{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text3);margin-top:2px;}
+.unlock-btn{margin-left:auto;font-family:‘JetBrains Mono’,monospace;font-size:8px;letter-spacing:2px;
+padding:5px 12px;border-radius:6px;cursor:pointer;border:none;
+background:linear-gradient(135deg,var(–teal),var(–teal2));color:var(–bg);font-weight:700;}
+
+/* TOGGLE */
+.toggle{position:relative;display:inline-block;width:42px;height:22px;cursor:pointer;}
+.toggle input{opacity:0;width:0;height:0;}
+.tog-track{position:absolute;inset:0;border-radius:22px;
+background:rgba(0,229,204,0.05);border:1px solid var(–border2);transition:all .3s;}
+.tog-track::after{content:’’;position:absolute;left:3px;top:3px;width:14px;height:14px;border-radius:50%;
+background:var(–text3);transition:all .3s;box-shadow:0 2px 4px rgba(0,0,0,.5);}
+.toggle input:checked+.tog-track{background:rgba(0,229,204,0.1);border-color:var(–teal);
+box-shadow:0 0 10px rgba(0,229,204,0.3);}
+.toggle input:checked+.tog-track::after{transform:translateX(20px);background:var(–teal);box-shadow:0 0 8px var(–teal);}
+
+/* ═══ STATS ═══ */
+.rt-grid{display:flex;flex-direction:column;gap:10px;}
+.rt-card{background:var(–card);border:1px solid var(–border);border-radius:14px;padding:14px;}
+.rt-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.rt-label{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text2);letter-spacing:2px;}
+.rt-val{font-family:‘Syne’,sans-serif;font-size:24px;font-weight:800;color:var(–teal);text-shadow:var(–glow-t);}
+.rt-graph{display:flex;align-items:flex-end;gap:2px;height:38px;overflow:hidden;margin-bottom:10px;}
+.gbar{flex:1;border-radius:2px 2px 0 0;min-height:2px;transition:height .3s;}
+.rt-stats{display:flex;justify-content:space-between;font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text3);}
+.rt-stats b{color:var(–text2);}
+
+/* ═══ VIP ═══ */
+.vip-hero{border-radius:16px;overflow:hidden;position:relative;margin-bottom:16px;min-height:150px;
+display:flex;align-items:center;justify-content:center;}
+.vip-bg{position:absolute;inset:0;
+background:linear-gradient(135deg,#0c1824 0%,#08101a 40%,#0e1420 100%);}
+.vip-bg::before{content:’’;position:absolute;inset:0;
+background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(0,229,204,0.06),transparent 70%),
+radial-gradient(ellipse at 80% 90%,rgba(245,197,24,0.05),transparent 60%);}
+.vip-bg::after{content:’’;position:absolute;inset:0;
+background-image:linear-gradient(rgba(0,229,204,0.03) 1px,transparent 1px),
+linear-gradient(90deg,rgba(0,229,204,0.03) 1px,transparent 1px);
+background-size:40px 40px;}
+.vip-content{position:relative;z-index:1;text-align:center;padding:30px 20px;}
+.vip-icon{font-size:40px;display:block;margin-bottom:10px;
+filter:drop-shadow(0 0 20px rgba(245,197,24,0.8));}
+.vip-title{font-family:‘Syne’,sans-serif;font-size:26px;font-weight:800;letter-spacing:4px;
+color:var(–teal);text-shadow:var(–glow-t);}
+.vip-sub{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–text2);letter-spacing:2px;margin-top:6px;}
+.vip-perks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.perk-card{background:var(–card);border:1px solid var(–border);border-radius:12px;padding:13px;text-align:center;}
+.perk-ico{font-size:22px;margin-bottom:5px;}
+.perk-name{font-family:‘Syne’,sans-serif;font-size:9px;font-weight:700;color:var(–teal);letter-spacing:1px;}
+.perk-desc{font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–text3);margin-top:3px;}
+.vip-cta{background:linear-gradient(135deg,rgba(0,229,204,0.06),rgba(245,197,24,0.04));
+border:1px solid var(–border2);border-radius:16px;padding:20px;text-align:center;}
+.cta-price-label{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text3);letter-spacing:3px;display:block;margin-bottom:4px;}
+.cta-price-val{font-family:‘Syne’,sans-serif;font-size:16px;color:var(–gold);letter-spacing:2px;display:block;margin-bottom:16px;
+text-shadow:var(–glow-g);}
+.cta-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
+background:linear-gradient(135deg,var(–teal),var(–teal2));
+border:none;border-radius:12px;padding:16px;cursor:pointer;
+font-family:‘Syne’,sans-serif;font-size:13px;font-weight:700;color:var(–bg);letter-spacing:2px;
+box-shadow:0 0 24px rgba(0,229,204,0.4);transition:all .2s;}
+.cta-btn:active{transform:scale(.97);}
+
+/* ═══ AIM LAB ═══ */
+.aim-hud{display:flex;align-items:center;gap:14px;
+background:linear-gradient(135deg,rgba(0,229,204,0.04),rgba(123,94,167,0.04));
+border:1px solid var(–border2);border-radius:16px;padding:16px;margin-bottom:16px;}
+.aim-crosshair{width:54px;height:54px;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ch-ring{position:absolute;width:48px;height:48px;border-radius:50%;border:1.5px solid var(–teal);
+box-shadow:0 0 10px rgba(0,229,204,0.3);animation:chPulse 2s ease-in-out infinite;}
+@keyframes chPulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.1);opacity:1}}
+.ch-h{position:absolute;width:28px;height:1.5px;background:var(–teal);box-shadow:0 0 6px var(–teal);}
+.ch-v{position:absolute;width:1.5px;height:28px;background:var(–teal);box-shadow:0 0 6px var(–teal);}
+.ch-dot{position:absolute;width:4px;height:4px;border-radius:50%;background:var(–teal);box-shadow:0 0 8px var(–teal);}
+.aim-hud-info{flex:1;}
+.aim-badge{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–teal);letter-spacing:2px;margin-bottom:4px;}
+.aim-mode-txt{font-family:‘Syne’,sans-serif;font-size:12px;color:var(–text2);font-weight:600;margin-bottom:8px;}
+.aim-score-row{display:flex;align-items:center;gap:8px;}
+.aim-score-lbl{font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–text3);letter-spacing:2px;}
+.aim-score-val{font-family:‘Syne’,sans-serif;font-size:24px;font-weight:800;color:var(–teal);text-shadow:var(–glow-t);}
+.aim-apply-mini{padding:10px 14px;border-radius:10px;cursor:pointer;border:none;
+font-family:‘JetBrains Mono’,monospace;font-size:9px;font-weight:700;letter-spacing:1px;
+background:linear-gradient(135deg,var(–teal),var(–teal2));color:var(–bg);flex-shrink:0;}
+
+.aim-sec{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–teal);letter-spacing:3px;
+margin:18px 0 10px;display:flex;align-items:center;gap:8px;}
+.aim-sec::after{content:’’;flex:1;height:1px;background:linear-gradient(90deg,var(–border2),transparent);}
+
+.lock-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px;}
+.lock-btn{display:flex;flex-direction:column;align-items:center;gap:3px;
+background:var(–card);border:1px solid var(–border);border-radius:12px;
+padding:12px 4px;cursor:pointer;transition:all .2s;}
+.lock-btn.active{background:rgba(0,229,204,0.08);border-color:var(–teal);
+box-shadow:0 0 16px rgba(0,229,204,0.2);animation:lockPulse 2s infinite;}
+@keyframes lockPulse{0%,100%{box-shadow:0 0 10px rgba(0,229,204,0.2)}50%{box-shadow:0 0 24px rgba(0,229,204,0.5)}}
+.lock-ver{font-family:‘Syne’,sans-serif;font-size:16px;font-weight:800;color:var(–teal);}
+.lock-name{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text2);}
+.lock-desc{font-family:‘JetBrains Mono’,monospace;font-size:7px;color:var(–text3);}
+.lock-detail{background:var(–card);border:1px solid var(–border);border-radius:10px;padding:10px 14px;margin-bottom:4px;}
+.ld-row{display:flex;justify-content:space-between;font-family:‘JetBrains Mono’,monospace;
+font-size:10px;color:var(–text3);padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.03);}
+.ld-row:last-child{border-bottom:none;}
+.ld-val{color:var(–teal);font-weight:600;}
+
+/* SMOOTH / SENS / SLIDERS */
+.smooth-card,.assist-card,.hold-card,.gyro-card,.hlcard,.tlcard{
+background:var(–card);border:1px solid var(–border);border-radius:12px;padding:14px;margin-bottom:4px;}
+.sm-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.sm-bar-wrap{flex:1;}
+.sm-track{height:5px;background:rgba(0,229,204,0.07);border-radius:4px;overflow:hidden;}
+.sm-fill{height:100%;background:linear-gradient(90deg,var(–teal2),var(–teal));border-radius:4px;transition:width .2s;}
+.sm-labels{display:flex;justify-content:space-between;font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–text3);margin-top:4px;}
+.sm-pct{font-family:‘Syne’,sans-serif;font-size:17px;font-weight:800;color:var(–teal);min-width:44px;text-align:right;}
+.presets{display:flex;gap:6px;margin-top:10px;}
+.preset-btn{flex:1;padding:8px;border-radius:8px;cursor:pointer;
+font-family:‘JetBrains Mono’,monospace;font-size:8px;letter-spacing:1px;
+background:var(–card2);border:1px solid var(–border);color:var(–text3);transition:all .2s;}
+.preset-btn.active{background:rgba(0,229,204,0.08);border-color:var(–teal);color:var(–teal);}
+
+.tog-row{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.tog-info{}
+.tog-title{font-family:‘Syne’,sans-serif;font-size:12px;font-weight:600;color:var(–text);}
+.tog-sub{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text3);margin-top:2px;}
+.opt-section{margin-top:14px;}
+.opt-row{display:flex;align-items:center;justify-content:space-between;
+font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–text2);margin-bottom:10px;}
+.opt-btns{display:flex;gap:5px;}
+.opt-btn{padding:5px 9px;border-radius:6px;cursor:pointer;
+font-family:‘JetBrains Mono’,monospace;font-size:8px;letter-spacing:1px;
+background:var(–card2);border:1px solid var(–border);color:var(–text3);transition:all .2s;}
+.opt-btn.active{background:rgba(0,229,204,0.08);border-color:var(–teal);color:var(–teal);}
+
+.sens-preset-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
+.sp-btn{display:flex;flex-direction:column;align-items:center;gap:3px;
+background:var(–card);border:1px solid var(–border);border-radius:12px;padding:12px 4px;cursor:pointer;transition:all .2s;}
+.sp-btn.active{background:rgba(0,229,204,0.07);border-color:var(–teal);box-shadow:0 0 12px rgba(0,229,204,0.2);}
+.sp-ico{font-size:17px;}
+.sp-name{font-family:‘Syne’,sans-serif;font-size:9px;font-weight:700;color:var(–text);}
+.sp-desc{font-family:‘JetBrains Mono’,monospace;font-size:7px;color:var(–text3);}
+
+.sens-sliders{background:var(–card);border:1px solid var(–border);border-radius:12px;padding:14px;margin-bottom:4px;}
+.sr-row{margin-bottom:14px;}
+.sr-row:last-child{margin-bottom:0;}
+.sr-label{display:flex;justify-content:space-between;font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–text2);margin-bottom:6px;}
+.sr-val{color:var(–teal);font-weight:700;}
+.sr-input{width:100%;-webkit-appearance:none;appearance:none;height:3px;border-radius:3px;outline:none;cursor:pointer;
+background:linear-gradient(90deg,var(–teal) 0%,var(–border2) 0%);}
+.sr-input::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;
+background:var(–teal);cursor:pointer;box-shadow:0 0 8px var(–teal),0 0 16px rgba(0,229,204,0.4);}
+
+/* HEAD LOCK */
+.hl-visual{display:flex;gap:14px;align-items:flex-start;}
+.hl-target{width:60px;height:60px;position:relative;flex-shrink:0;
+display:flex;align-items:center;justify-content:center;
+background:rgba(0,229,204,0.03);border:1px solid rgba(0,229,204,0.15);border-radius:10px;}
+.hl-head{width:20px;height:20px;border-radius:50%;background:rgba(0,229,204,0.12);border:1.5px solid var(–teal);}
+.hl-cross{position:absolute;background:rgba(0,229,204,0.35);}
+.hl-cross-h{width:48px;height:1px;}
+.hl-cross-v{width:1px;height:48px;}
+.hl-ring{position:absolute;width:30px;height:30px;border-radius:50%;border:1.5px solid var(–teal);transition:all .3s;}
+.hl-right{flex:1;}
+.hl-tog-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.hl-lvl-row{display:flex;gap:5px;margin-top:8px;}
+.hl-lvl{flex:1;padding:7px 3px;border-radius:7px;cursor:pointer;
+font-family:‘JetBrains Mono’,monospace;font-size:8px;letter-spacing:1px;text-align:center;
+background:var(–card2);border:1px solid var(–border);color:var(–text3);transition:all .2s;}
+.hl-lvl.active{background:rgba(0,229,204,0.08);border-color:var(–teal);color:var(–teal);}
+.hl-stats{margin-top:12px;}
+.hl-stat{display:flex;justify-content:space-between;font-family:‘JetBrains Mono’,monospace;
+font-size:9px;color:var(–text3);padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.03);}
+.hl-stat:last-child{border-bottom:none;}
+.hl-stat-val{color:var(–teal);font-weight:700;}
+
+/* TOUCH LAT */
+.tl-row{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.tl-gauge-val{font-family:‘Syne’,sans-serif;font-size:13px;font-weight:800;color:var(–teal);text-align:center;margin-top:4px;}
+.tl-info-title{font-family:‘Syne’,sans-serif;font-size:12px;font-weight:700;color:var(–text);margin-bottom:4px;}
+.tl-info-sub{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–teal);margin-bottom:10px;}
+.tl-opt-btn{padding:7px 12px;border-radius:8px;cursor:pointer;border:none;
+font-family:‘JetBrains Mono’,monospace;font-size:8px;letter-spacing:1px;font-weight:700;
+background:linear-gradient(135deg,var(–teal),var(–teal2));color:var(–bg);}
+.tl-opts{border-top:1px solid var(–border);padding-top:12px;display:flex;flex-direction:column;gap:10px;}
+.tl-opt-row{display:flex;align-items:center;justify-content:space-between;
+font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–text2);}
+
+/* LAYOUT */
+.layout-row{display:flex;gap:8px;margin-bottom:10px;}
+.layout-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;
+background:var(–card);border:1px solid var(–border);border-radius:12px;padding:14px 6px;cursor:pointer;transition:all .2s;}
+.layout-btn.active{background:rgba(0,229,204,0.06);border-color:var(–teal);box-shadow:0 0 12px rgba(0,229,204,0.2);}
+.layout-fingers{display:flex;justify-content:center;gap:4px;height:26px;align-items:flex-end;}
+.finger{width:8px;border-radius:4px 4px 0 0;background:rgba(0,229,204,0.18);border:1px solid rgba(0,229,204,0.3);}
+.f-thumb{height:18px;}.f-index{height:26px;background:rgba(245,197,24,0.18);border-color:rgba(245,197,24,0.3);}
+.layout-name{font-family:‘Syne’,sans-serif;font-size:11px;font-weight:700;color:var(–text);}
+.layout-desc{font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–text3);}
+.layout-tip{background:rgba(0,229,204,0.03);border:1px solid var(–border);border-radius:10px;padding:12px;margin-bottom:4px;}
+.tip-title{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–teal);letter-spacing:1px;margin-bottom:4px;}
+.tip-text{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text3);line-height:1.6;}
+
+.apply-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
+background:linear-gradient(135deg,var(–teal),var(–teal2));
+border:none;border-radius:14px;padding:17px;cursor:pointer;
+font-family:‘Syne’,sans-serif;font-size:13px;font-weight:800;color:var(–bg);letter-spacing:2px;margin-top:16px;
+box-shadow:0 0 28px rgba(0,229,204,0.4);transition:all .2s;}
+.apply-btn:active{transform:scale(.97);}
+
+/* ═══ SETTINGS ═══ */
+.set-group{background:var(–card);border:1px solid var(–border);border-radius:14px;overflow:hidden;margin-bottom:12px;}
+.set-group-title{padding:9px 16px;font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–text3);letter-spacing:3px;
+background:rgba(0,229,204,0.02);border-bottom:1px solid var(–border);}
+.set-item{display:flex;align-items:center;justify-content:space-between;
+padding:13px 16px;border-bottom:1px solid var(–border);}
+.set-item:last-child{border-bottom:none;}
+.set-item-name{font-family:‘Syne’,sans-serif;font-size:12px;font-weight:600;color:var(–text);margin-bottom:2px;}
+.set-item-desc{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text3);}
+.set-item-val{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–teal);}
+.set-select{background:var(–card2);border:1px solid var(–border);color:var(–teal);
+font-family:‘JetBrains Mono’,monospace;font-size:9px;padding:5px 8px;border-radius:7px;outline:none;appearance:none;cursor:pointer;}
+
+/* ═══ ADMIN ═══ */
+.admin-hero{position:relative;padding:28px 20px 20px;overflow:hidden;text-align:center;}
+.admin-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,229,204,0.06),transparent 60%);}
+.admin-scan{position:absolute;left:0;right:0;height:1px;
+background:linear-gradient(90deg,transparent,rgba(0,229,204,0.5),transparent);
+animation:scanMove 3s linear infinite;}
+@keyframes scanMove{0%{top:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
+.admin-tag{display:inline-block;font-family:‘JetBrains Mono’,monospace;font-size:9px;letter-spacing:3px;
+color:var(–teal);border:1px solid rgba(0,229,204,0.3);padding:3px 12px;border-radius:20px;
+margin-bottom:10px;background:rgba(0,229,204,0.05);}
+.admin-page-title{font-family:‘Syne’,sans-serif;font-size:26px;font-weight:800;letter-spacing:2px;color:#fff;}
+.admin-page-title em{color:var(–teal);font-style:normal;text-shadow:var(–glow-t);}
+
+.admin-card{position:relative;margin:0 0 20px;
+background:linear-gradient(160deg,rgba(0,229,204,0.03),rgba(0,0,0,0.3));
+border:1px solid rgba(0,229,204,0.12);border-radius:18px;padding:28px 20px 22px;
+display:flex;flex-direction:column;align-items:center;overflow:hidden;}
+.admin-ring-o,.admin-ring-m{position:absolute;top:50%;left:50%;border-radius:50%;transform:translate(-50%,calc(-50% - 28px));}
+.admin-ring-o{width:155px;height:155px;border:1px dashed rgba(0,229,204,0.1);animation:ringSpin 14s linear infinite;}
+.admin-ring-m{width:125px;height:125px;border:1px solid rgba(0,229,204,0.16);animation:ringSpin 8s linear infinite reverse;}
+@keyframes ringSpin{to{transform:translate(-50%,calc(-50% - 28px)) rotate(360deg);}}
+.admin-frame{position:relative;width:96px;height:96px;border-radius:50%;padding:3px;
+background:conic-gradient(from 0deg,var(–teal),var(–gold),var(–teal2),var(–teal));
+animation:frameSpin 5s linear infinite;margin-bottom:14px;}
+@keyframes frameSpin{to{filter:hue-rotate(40deg);}}
+.admin-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;background:#0c1420;
+display:flex;align-items:center;justify-content:center;}
+.admin-inner img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.admin-name{font-family:‘Syne’,sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:6px;text-align:center;}
+.admin-status{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:10px;}
+.admin-dot{width:7px;height:7px;border-radius:50%;background:var(–teal);
+box-shadow:0 0 10px var(–teal);animation:dotPulse 2s ease-in-out infinite;}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 6px var(–teal)}50%{box-shadow:0 0 16px var(–teal),0 0 28px rgba(0,229,204,0.4)}}
+.admin-status-txt{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:rgba(0,229,204,0.7);}
+.admin-role{display:inline-block;font-family:‘JetBrains Mono’,monospace;font-size:9px;font-weight:700;
+letter-spacing:2px;padding:4px 14px;border-radius:20px;
+background:linear-gradient(135deg,rgba(0,229,204,0.1),rgba(245,197,24,0.08));
+border:1px solid rgba(0,229,204,0.2);color:var(–teal);}
+.contact-label{font-family:‘JetBrains Mono’,monospace;font-size:9px;letter-spacing:3px;color:var(–text3);text-align:center;margin:0 0 12px;}
+.contacts{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
+.contact-card{display:flex;align-items:center;gap:14px;padding:14px 16px;
+border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);
+text-decoration:none;overflow:hidden;transition:all .25s;cursor:pointer;position:relative;}
+.contact-card:hover{transform:translateX(4px);}
+.zalo:hover{border-color:rgba(0,104,255,0.4);background:rgba(0,104,255,0.04);}
+.fb:hover{border-color:rgba(24,119,242,0.4);background:rgba(24,119,242,0.04);}
+.tg:hover{border-color:rgba(34,158,217,0.4);background:rgba(34,158,217,0.04);}
+.c-ico{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.c-ico.z{background:rgba(0,104,255,0.1);border:1px solid rgba(0,104,255,0.2);}
+.c-ico.f{background:rgba(24,119,242,0.1);border:1px solid rgba(24,119,242,0.2);}
+.c-ico.t{background:rgba(34,158,217,0.1);border:1px solid rgba(34,158,217,0.2);}
+.c-info{flex:1;}
+.c-platform{font-family:‘Syne’,sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px;}
+.c-handle{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–teal);}
+.c-desc{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text3);}
+.c-arrow{color:rgba(255,255,255,0.2);transition:all .2s;}
+.contact-card:hover .c-arrow{color:rgba(255,255,255,0.6);transform:translateX(3px);}
+.admin-stats{display:flex;align-items:center;background:rgba(0,229,204,0.03);
+border:1px solid rgba(0,229,204,0.08);border-radius:12px;padding:14px 0;margin-bottom:14px;}
+.astat{flex:1;text-align:center;}
+.astat-val{font-family:‘Syne’,sans-serif;font-size:18px;font-weight:800;color:var(–teal);text-shadow:var(–glow-t);}
+.astat-lbl{font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–text3);margin-top:2px;}
+.astat-div{width:1px;height:34px;background:rgba(0,229,204,0.1);}
+.admin-note{display:flex;gap:8px;align-items:flex-start;background:rgba(0,229,204,0.03);
+border:1px solid rgba(0,229,204,0.08);border-radius:10px;padding:10px 12px;
+font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text3);line-height:1.6;}
+
+/* ═══ BOTTOM NAV ═══ */
+.bnav{position:fixed;bottom:0;left:0;right:0;
+height:calc(var(–nav-h) + var(–safe-bottom));
+padding-bottom:var(–safe-bottom);
+display:flex;align-items:center;
+background:rgba(8,12,16,0.97);
+border-top:1px solid var(–border);
+z-index:500;backdrop-filter:blur(20px);}
+.bnav::before{content:’’;position:absolute;top:0;left:0;right:0;height:1px;
+background:linear-gradient(90deg,transparent,var(–teal3),rgba(245,197,24,0.15),var(–teal3),transparent);opacity:.8;}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+gap:4px;background:none;border:none;cursor:pointer;color:var(–text3);padding:6px 2px;
+transition:all .2s;position:relative;overflow:hidden;}
+.nb::after{content:’’;position:absolute;top:-1px;left:25%;right:25%;height:2px;
+border-radius:0 0 3px 3px;background:var(–teal);
+transform:scaleX(0);transition:transform .25s cubic-bezier(.34,1.56,.64,1);
+box-shadow:0 0 10px var(–teal);}
+.nb.active{color:var(–teal);}
+.nb.active::after{transform:scaleX(1);}
+.nb.active svg{filter:drop-shadow(0 0 4px var(–teal));}
+.nb span{font-family:‘JetBrains Mono’,monospace;font-size:7px;letter-spacing:.5px;}
+
+/* TOAST */
+.toast{position:fixed;bottom:calc(var(–nav-h) + var(–safe-bottom) + 14px);
+left:50%;transform:translateX(-50%) translateY(16px);
+background:rgba(8,12,16,0.97);border:1px solid var(–border2);
+color:var(–text);padding:10px 22px;border-radius:30px;
+font-family:‘JetBrains Mono’,monospace;font-size:10px;letter-spacing:1px;
+white-space:nowrap;z-index:9000;opacity:0;
+transition:all .3s cubic-bezier(.34,1.56,.64,1);
+box-shadow:0 0 20px rgba(0,229,204,0.15);backdrop-filter:blur(16px);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* BOOST OVERLAY */
+.boost-ov{position:fixed;inset:0;z-index:9990;
+background:rgba(8,12,16,0.97);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(16px);}
+.bov-inner{text-align:center;}
+.bov-ring{width:96px;height:96px;border-radius:50%;margin:0 auto 24px;
+border:2px solid transparent;
+background:linear-gradient(var(–bg),var(–bg)) padding-box,
+linear-gradient(135deg,var(–teal),var(–gold)) border-box;
+animation:ovSpin 1s linear infinite;
+box-shadow:0 0 30px rgba(0,229,204,0.3),0 0 60px rgba(0,229,204,0.1);}
+@keyframes ovSpin{to{transform:rotate(360deg)}}
+.bov-text{font-family:‘JetBrains Mono’,monospace;font-size:11px;color:var(–text2);letter-spacing:3px;margin-bottom:12px;}
+.bov-pct{font-family:‘Syne’,sans-serif;font-size:44px;font-weight:800;color:var(–teal);
+text-shadow:0 0 10px var(–teal),0 0 30px rgba(0,229,204,0.5);}
+
+/* KEY MODAL */
+#key-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;
+background:rgba(8,12,16,0.97);backdrop-filter:blur(24px);}
+.km-box{position:relative;width:88%;max-width:360px;
+background:linear-gradient(160deg,rgba(12,20,32,0.99),rgba(14,22,36,0.99));
+border:1px solid var(–border2);border-radius:20px;padding:32px 22px;text-align:center;
+box-shadow:0 0 0 1px rgba(0,229,204,0.04),0 0 50px rgba(0,229,204,0.1),0 24px 60px rgba(0,0,0,.9);
+animation:modalIn .4s cubic-bezier(.34,1.56,.64,1);}
+@keyframes modalIn{0%{opacity:0;transform:scale(.82) translateY(22px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+.km-box::before{content:’’;position:absolute;top:0;left:15%;right:15%;height:1px;
+background:linear-gradient(90deg,transparent,var(–teal),var(–gold),transparent);}
+.km-corner{position:absolute;width:12px;height:12px;}
+.km-corner.tl{top:10px;left:10px;border-top:1.5px solid var(–teal);border-left:1.5px solid var(–teal);}
+.km-corner.tr{top:10px;right:10px;border-top:1.5px solid var(–gold);border-right:1.5px solid var(–gold);}
+.km-corner.bl{bottom:10px;left:10px;border-bottom:1.5px solid var(–teal);border-left:1.5px solid var(–teal);}
+.km-corner.br{bottom:10px;right:10px;border-bottom:1.5px solid var(–gold);border-right:1.5px solid var(–gold);}
+.km-icon{font-size:44px;display:block;margin-bottom:12px;filter:drop-shadow(0 0 16px var(–teal));}
+.km-title{font-family:‘Syne’,sans-serif;font-size:16px;font-weight:800;letter-spacing:4px;
+color:var(–teal);text-shadow:var(–glow-t);margin-bottom:6px;}
+.km-sub{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:var(–text3);letter-spacing:2px;margin-bottom:24px;}
+#key-input{width:100%;padding:13px 16px;border-radius:10px;
+background:rgba(0,229,204,0.03);border:1px solid var(–border2);
+color:var(–text);font-family:‘JetBrains Mono’,monospace;font-size:12px;letter-spacing:2px;
+outline:none;margin-bottom:10px;transition:all .2s;}
+#key-input:focus{border-color:var(–teal);background:rgba(0,229,204,0.05);box-shadow:0 0 16px rgba(0,229,204,0.15);}
+#key-input::placeholder{color:var(–text3);}
+#key-msg{font-family:‘JetBrains Mono’,monospace;font-size:10px;min-height:18px;margin-bottom:14px;color:var(–text3);}
+#act-btn{width:100%;padding:15px;border-radius:12px;cursor:pointer;border:none;
+font-family:‘Syne’,sans-serif;font-size:13px;font-weight:800;letter-spacing:3px;color:var(–bg);margin-bottom:14px;
+background:linear-gradient(135deg,var(–teal),var(–teal2));
+box-shadow:0 0 24px rgba(0,229,204,0.4);transition:all .2s;}
+#act-btn:disabled{opacity:.4;cursor:not-allowed;}
+#act-btn:not(:disabled):active{transform:scale(.96);}
+.km-lock{display:flex;align-items:center;justify-content:center;gap:8px;
+font-family:‘JetBrains Mono’,monospace;font-size:8px;color:var(–text3);letter-spacing:2px;}
+.km-lock::before,.km-lock::after{content:’’;flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(0,229,204,0.1));}
+.km-lock::after{background:linear-gradient(270deg,transparent,rgba(0,229,204,0.1));}
+
+#vip-banner{background:linear-gradient(90deg,rgba(0,229,204,0.04),rgba(245,197,24,0.06),rgba(0,229,204,0.04));
+border-bottom:1px solid rgba(0,229,204,0.12);color:var(–teal);padding:7px 16px;text-align:center;
+font-family:‘JetBrains Mono’,monospace;font-size:10px;font-weight:700;letter-spacing:2px;}
+
+/* RIPPLE */
+button,.nb,.tile,.lock-btn,.sp-btn,.layout-btn{position:relative;overflow:hidden;}
+.ripple{position:absolute;border-radius:50%;background:rgba(0,229,204,0.25);
+transform:translate(-50%,-50%) scale(0);animation:rip .6s ease-out forwards;
+width:80px;height:80px;pointer-events:none;z-index:10;}
+@keyframes rip{to{transform:translate(-50%,-50%) scale(4);opacity:0;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.page.active .pscroll>*{animation:fadeUp .25s ease forwards;}
+</style>
+
+</head>
+<body>
+
+<!-- SPLASH -->
+
+<div id="splash">
+  <div class="splash-grid-bg"></div>
+  <div class="splash-hex">
+    <svg viewBox="0 0 100 100">
+      <g class="hex-spin"><polygon points="50,5 92,27 92,73 50,95 8,73 8,27" fill="none" stroke="rgba(0,229,204,0.25)" stroke-width="1.5"/></g>
+      <g class="hex-spin2"><polygon points="50,12 86,31 86,69 50,88 14,69 14,31" fill="none" stroke="rgba(245,197,24,0.2)" stroke-width="1"/></g>
+      <circle cx="50" cy="50" r="8" fill="#00e5cc" opacity=".9"/>
+      <circle cx="50" cy="50" r="16" fill="none" stroke="#00e5cc" stroke-width="1" opacity=".4"/>
+    </svg>
+  </div>
+  <div class="splash-logo">SperNew</div>
+  <div class="splash-sub">CYBER · X · EDITION</div>
+  <div class="splash-progress-wrap">
+    <div class="splash-track"><div class="splash-fill" id="sf"></div></div>
+    <div class="splash-log" id="sl">INITIALIZING...</div>
+  </div>
+</div>
+
+<!-- APP -->
+
+<div id="app" style="display:none;">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="logo-mark">
+      <svg class="logo-hex" viewBox="0 0 28 28"><polygon points="14,2 25,8 25,20 14,26 3,20 3,8" fill="none" stroke="#00e5cc" stroke-width="1.5"/><circle cx="14" cy="14" r="4" fill="#00e5cc"/></svg>
+      <div class="logo-text">SperNew</div>
+    </div>
+    <div class="logo-edition">CYBER X</div>
+    <div class="topbar-right">
+      <div class="tier-tag" id="tier-tag">FREE</div>
+      <div class="conn-badge"><div class="conn-dot"></div><span>ONLINE</span></div>
+    </div>
+  </div>
+
+  <!-- PAGES -->
+
+  <div class="pages">
+
+```
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="pscroll">
+
+    <div class="hero-banner">
+      <div class="hero-text">
+        <div class="hero-eyebrow">▸ SYSTEM OPTIMIZER</div>
+        <div class="hero-title">GAME<br><em>BOOSTER</em></div>
+        <div class="hero-desc">🔷 Cyber AI · Free Fire Ready</div>
+      </div>
+      <div class="boost-orb" id="boost-btn" onclick="runBoost()">
+        <div class="boost-orb-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#00e5cc" stroke-width="2" fill="rgba(0,229,204,0.25)"/>
+          </svg>
+          <span>BOOST</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="m-label"><div class="m-dot"></div>FPS</div>
+        <div class="m-value" id="val-fps">--</div>
+        <div class="m-bar"><div class="m-fill" id="bar-fps"></div></div>
+        <div class="m-status" id="st-fps">Scanning...</div>
+      </div>
+      <div class="metric-card">
+        <div class="m-label"><div class="m-dot" style="background:var(--gold)"></div>CPU</div>
+        <div class="m-value" style="color:var(--gold);text-shadow:var(--glow-g)" id="val-cpu">--<span class="m-unit">%</span></div>
+        <div class="m-bar"><div class="m-fill" style="background:linear-gradient(90deg,#c8a000,var(--gold))" id="bar-cpu"></div></div>
+        <div class="m-status" id="st-cpu">Scanning...</div>
+      </div>
+      <div class="metric-card">
+        <div class="m-label"><div class="m-dot" style="background:var(--purple)"></div>RAM</div>
+        <div class="m-value" style="color:var(--purple);text-shadow:0 0 12px rgba(123,94,167,.6)" id="val-ram">--<span class="m-unit">%</span></div>
+        <div class="m-bar"><div class="m-fill" style="background:linear-gradient(90deg,#5a3d88,var(--purple))" id="bar-ram"></div></div>
+        <div class="m-status" id="st-ram">Scanning...</div>
+      </div>
+      <div class="metric-card">
+        <div class="m-label"><div class="m-dot" style="background:var(--pink)"></div>TEMP</div>
+        <div class="m-value" style="color:var(--pink);text-shadow:0 0 12px rgba(255,77,189,.5)" id="val-temp">--<span class="m-unit">°</span></div>
+        <div class="m-bar"><div class="m-fill" style="background:linear-gradient(90deg,#cc2090,var(--pink))" id="bar-temp"></div></div>
+        <div class="m-status" id="st-temp">Scanning...</div>
+      </div>
+    </div>
+
+    <!-- PERF SCORE -->
+    <div class="score-strip">
+      <div class="score-ring-wrap">
+        <svg width="76" height="76" viewBox="0 0 76 76">
+          <circle cx="38" cy="38" r="30" fill="none" stroke="rgba(0,229,204,0.08)" stroke-width="5"/>
+          <circle cx="38" cy="38" r="30" fill="none" stroke="#00e5cc" stroke-width="5"
+            stroke-dasharray="188" stroke-dashoffset="188" stroke-linecap="round" id="score-circ"
+            style="transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset 1.5s ease;filter:drop-shadow(0 0 5px #00e5cc)"/>
+        </svg>
+      </div>
+      <div class="score-info">
+        <div class="score-label">PERF SCORE</div>
+        <div class="score-num" id="score-num">0</div>
+        <div class="score-grade" id="score-grade">ANALYZING...</div>
+      </div>
+    </div>
+
+    <!-- QUICK TILES -->
+    <div class="label">// Quick Actions</div>
+    <div class="tile-grid">
+      <div class="tile" onclick="qa('clear')"><div class="tile-icon">🧹</div><div class="tile-label">Clear RAM</div></div>
+      <div class="tile" onclick="qa('cool')"><div class="tile-icon">❄️</div><div class="tile-label">Cool Down</div></div>
+      <div class="tile" onclick="qa('boost')"><div class="tile-icon">⚡</div><div class="tile-label">FPS Boost</div></div>
+      <div class="tile" onclick="qa('net')"><div class="tile-icon">🌐</div><div class="tile-label">Net Fix</div></div>
+      <div class="tile" onclick="qa('junk')"><div class="tile-icon">💀</div><div class="tile-label">Deep Clean</div></div>
+      <div class="tile" onclick="switchPage('aimlab')"><div class="tile-icon">🎯</div><div class="tile-label">Aim Lab</div></div>
+      <div class="tile" onclick="switchPage('stats')"><div class="tile-icon">📊</div><div class="tile-label">Live Stats</div></div>
+      <div class="tile" onclick="switchPage('vip')"><div class="tile-icon">👑</div><div class="tile-label">VIP</div></div>
+    </div>
+
+    <!-- POWER MODE -->
+    <div class="label">// Power Mode</div>
+    <div class="power-card">
+      <div class="power-header">
+        <div>
+          <div class="power-title">CPU Governor</div>
+          <div class="power-sub" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)">Chọn chế độ hoạt động</div>
+        </div>
+        <label class="toggle"><input type="checkbox" id="pwr-master" onchange="showToast(this.checked?'⚡ Power boost ON':'Power OFF')"><span class="tog-track"></span></label>
+      </div>
+      <div class="power-modes">
+        <div class="pmode" onclick="setPmode(this,'eco')"><div class="pmode-icon">🌿</div><div class="pmode-name">ECO</div></div>
+        <div class="pmode active" onclick="setPmode(this,'bal')"><div class="pmode-icon">⚖️</div><div class="pmode-name">BAL</div></div>
+        <div class="pmode" onclick="setPmode(this,'perf')"><div class="pmode-icon">⚡</div><div class="pmode-name">PERF</div></div>
+        <div class="pmode" onclick="setPmode(this,'max')"><div class="pmode-icon">💀</div><div class="pmode-name">MAX</div></div>
+      </div>
+    </div>
+
+    <!-- SYS BARS -->
+    <div class="label">// System Health</div>
+    <div class="sys-bars">
+      <div class="sys-title">// REAL-TIME METRICS</div>
+      <div class="sbar-row"><span class="sbar-label">FPS Stable</span><div class="sbar-track"><div class="sbar-fill" id="bb1" style="width:80%"></div></div><span class="sbar-val" id="bb1v">80%</span></div>
+      <div class="sbar-row"><span class="sbar-label">Latency</span><div class="sbar-track"><div class="sbar-fill" id="bb2" style="width:92%"></div></div><span class="sbar-val" id="bb2v">92%</span></div>
+      <div class="sbar-row"><span class="sbar-label">Aim Score</span><div class="sbar-track"><div class="sbar-fill" id="bb3" style="width:75%"></div></div><span class="sbar-val" id="bb3v">75%</span></div>
+      <div class="sbar-row"><span class="sbar-label">Net Stability</span><div class="sbar-track"><div class="sbar-fill" id="bb4" style="width:88%"></div></div><span class="sbar-val" id="bb4v">88%</span></div>
+    </div>
+
+    <!-- NETWORK -->
+    <div class="label">// Network</div>
+    <div class="net-card">
+      <div class="sys-title">// CONNECTION STATUS</div>
+      <div class="net-grid">
+        <div class="net-item"><div class="net-icon">↓</div><div class="net-val" id="net-d">--</div><div class="net-lbl">Download</div></div>
+        <div class="net-item"><div class="net-icon">↑</div><div class="net-val" id="net-u">--</div><div class="net-lbl">Upload</div></div>
+        <div class="net-item"><div class="net-icon">⟳</div><div class="net-val" id="net-p">--</div><div class="net-lbl">Ping</div></div>
+      </div>
+    </div>
+
+    <!-- TERMINAL -->
+    <div class="label">// System Terminal</div>
+    <div class="terminal">
+      <div class="term-header">
+        <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
+        <span class="term-title">SPERNEW://LIVE</span>
+      </div>
+      <div class="term-lines" id="term-home">
+        <div class="tline done">[OK] SperNew Cyber X loaded</div>
+        <div class="tline done">[OK] Device profile acquired</div>
+        <div class="tline active">[>>] Performance AI standby<span class="tcursor"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="page" id="page-features">
+  <div class="pscroll">
+    <div class="sec-header"><div class="sec-title">FEATURES</div><div class="sec-sub">// Tính năng tối ưu hóa</div></div>
+    <div class="feat-badge-row"><span class="badge badge-free">FREE</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)">Basic Tools</span></div>
+    <div class="feat-list" id="fl-free"></div>
+    <div class="feat-badge-row" style="margin-top:18px">
+      <span class="badge badge-vip">VIP</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3)">Advanced Features</span>
+      <button class="unlock-btn" onclick="showKeyModal()" style="margin-left:auto">UNLOCK</button>
+    </div>
+    <div class="feat-list locked" id="fl-vip"></div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="page" id="page-stats">
+  <div class="pscroll">
+    <div class="sec-header"><div class="sec-title">LIVE STATS</div><div class="sec-sub">// Thống kê thời gian thực</div></div>
+    <div class="rt-grid">
+      <div class="rt-card"><div class="rt-top"><span class="rt-label">FPS COUNTER</span><span class="rt-val" id="rt-fps">60</span></div><div class="rt-graph" id="g-fps"></div><div class="rt-stats"><span>Min: <b id="r-fps-mn">--</b></span><span>Avg: <b id="r-fps-av">--</b></span><span>Max: <b id="r-fps-mx">--</b></span></div></div>
+      <div class="rt-card"><div class="rt-top"><span class="rt-label">CPU USAGE</span><span class="rt-val" style="color:var(--gold);text-shadow:var(--glow-g)" id="rt-cpu">0%</span></div><div class="rt-graph" id="g-cpu"></div><div class="rt-stats"><span>Min: <b id="r-cpu-mn">--</b></span><span>Avg: <b id="r-cpu-av">--</b></span><span>Max: <b id="r-cpu-mx">--</b></span></div></div>
+      <div class="rt-card"><div class="rt-top"><span class="rt-label">RAM USAGE</span><span class="rt-val" style="color:var(--purple);text-shadow:0 0 12px rgba(123,94,167,.6)" id="rt-ram">0%</span></div><div class="rt-graph" id="g-ram"></div><div class="rt-stats"><span>Min: <b id="r-ram-mn">--</b></span><span>Avg: <b id="r-ram-av">--</b></span><span>Max: <b id="r-ram-mx">--</b></span></div></div>
+      <div class="rt-card"><div class="rt-top"><span class="rt-label">TEMPERATURE</span><span class="rt-val" style="color:var(--pink);text-shadow:0 0 10px rgba(255,77,189,.5)" id="rt-temp">0°</span></div><div class="rt-graph" id="g-temp"></div><div class="rt-stats"><span>Min: <b id="r-tmp-mn">--</b></span><span>Avg: <b id="r-tmp-av">--</b></span><span>Max: <b id="r-tmp-mx">--</b></span></div></div>
+    </div>
+    <div class="label" style="margin-top:20px">// Network Monitor</div>
+    <div class="net-card">
+      <div class="net-grid">
+        <div class="net-item"><div class="net-icon">↓</div><div class="net-val" id="s-net-d">0 MB/s</div><div class="net-lbl">Download</div></div>
+        <div class="net-item"><div class="net-icon">↑</div><div class="net-val" id="s-net-u">0 MB/s</div><div class="net-lbl">Upload</div></div>
+        <div class="net-item"><div class="net-icon">⟳</div><div class="net-val" id="s-net-p">-- ms</div><div class="net-lbl">Ping</div></div>
+      </div>
+    </div>
+    <div class="label">// Live Terminal</div>
+    <div class="terminal">
+      <div class="term-header"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-title">MONITORING</span></div>
+      <div class="term-lines" id="term-live"><div class="tline done">[SYS] Network connected</div><div class="tline active">[MON] FPS tracking...<span class="tcursor"></span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- VIP -->
+<div class="page" id="page-vip">
+  <div class="pscroll">
+    <div class="vip-hero">
+      <div class="vip-bg"></div>
+      <div class="vip-content">
+        <span class="vip-icon">⚡</span>
+        <div class="vip-title">SPERNEW VIP</div>
+        <div class="vip-sub">Unlock full cyber power</div>
+      </div>
+    </div>
+    <div class="vip-perks">
+      <div class="perk-card"><div class="perk-ico">🎯</div><div class="perk-name">AI AIM</div><div class="perk-desc">Tối ưu độ chính xác AI</div></div>
+      <div class="perk-card"><div class="perk-ico">⚡</div><div class="perk-name">TURBO FPS</div><div class="perk-desc">Tăng FPS tối đa</div></div>
+      <div class="perk-card"><div class="perk-ico">🔥</div><div class="perk-name">THERMAL AI</div><div class="perk-desc">Kiểm soát nhiệt 24/7</div></div>
+      <div class="perk-card"><div class="perk-ico">🌐</div><div class="perk-name">NET TURBO</div><div class="perk-desc">Giảm ping game</div></div>
+      <div class="perk-card"><div class="perk-ico">💀</div><div class="perk-name">DEEP HACK</div><div class="perk-desc">Tối ưu cấp hệ thống</div></div>
+      <div class="perk-card"><div class="perk-ico">📊</div><div class="perk-name">ANALYTICS</div><div class="perk-desc">Phân tích chuyên sâu</div></div>
+    </div>
+    <div class="vip-cta">
+      <span class="cta-price-label">VIP ACCESS</span>
+      <span class="cta-price-val">LIÊN HỆ ADMIN</span>
+      <button class="cta-btn" onclick="showKeyModal()">
+        <span>NHẬP KEY KÍCH HOẠT</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- AIM LAB -->
+<div class="page" id="page-aimlab">
+  <div class="pscroll">
+    <div class="sec-header"><div class="sec-title">AIM LAB</div><div class="sec-sub">// Hỗ trợ kéo tâm Free Fire</div></div>
+
+    <div class="aim-hud">
+      <div class="aim-crosshair"><div class="ch-ring"></div><div class="ch-h"></div><div class="ch-v"></div><div class="ch-dot"></div></div>
+      <div class="aim-hud-info">
+        <div class="aim-badge" id="aim-badge">● READY</div>
+        <div class="aim-mode-txt" id="aim-mode">Chế độ: Cân bằng</div>
+        <div class="aim-score-row"><span class="aim-score-lbl">AIM SCORE</span><span class="aim-score-val" id="aim-score">78</span></div>
+      </div>
+      <button class="aim-apply-mini" onclick="applyAim()">APPLY</button>
+    </div>
+
+    <div class="aim-sec">🔒 AIM LOCK</div>
+    <div class="lock-grid">
+      <button class="lock-btn" id="al-v1" onclick="setLock(this,'v1')"><span class="lock-ver">v1</span><span class="lock-name">Nhẹ</span><span class="lock-desc">Hỗ trợ nhẹ</span></button>
+      <button class="lock-btn" id="al-v2" onclick="setLock(this,'v2')"><span class="lock-ver">v2</span><span class="lock-name">Vừa</span><span class="lock-desc">Cân bằng</span></button>
+      <button class="lock-btn active" id="al-v3" onclick="setLock(this,'v3')"><span class="lock-ver">v3</span><span class="lock-name">Mạnh</span><span class="lock-desc">Bám tốt</span></button>
+      <button class="lock-btn" id="al-v4" onclick="setLock(this,'v4')"><span class="lock-ver">v4</span><span class="lock-name">MAX</span><span class="lock-desc">Pro lock</span></button>
+    </div>
+    <div class="lock-detail">
+      <div class="ld-row"><span>Lock radius</span><span class="ld-val" id="ld-r">35px</span></div>
+      <div class="ld-row"><span>Track speed</span><span class="ld-val" id="ld-s">Medium</span></div>
+      <div class="ld-row"><span>Priority</span><span class="ld-val" id="ld-p">Đầu + Ngực</span></div>
+    </div>
+
+    <div class="aim-sec">🪶 SMOOTH AIM</div>
+    <div class="smooth-card">
+      <div class="sm-row">
+        <div class="sm-bar-wrap">
+          <div class="sm-track"><div class="sm-fill" id="sm-fill" style="width:60%"></div></div>
+          <div class="sm-labels"><span>Cứng</span><span>Mượt</span></div>
+        </div>
+        <span class="sm-pct" id="sm-pct">60%</span>
+      </div>
+      <input type="range" min="0" max="100" value="60" class="sr-input" style="width:100%;" oninput="updateSmooth(this.value)">
+      <div class="presets">
+        <button class="preset-btn" onclick="setSmooth(this,20)">Chắc tay</button>
+        <button class="preset-btn active" onclick="setSmooth(this,60)">Cân bằng</button>
+        <button class="preset-btn" onclick="setSmooth(this,85)">Siêu mượt</button>
+      </div>
+    </div>
+
+    <div class="aim-sec">🤖 AIM ASSIST</div>
+    <div class="assist-card">
+      <div class="tog-row">
+        <div class="tog-info"><div class="tog-title">Aim Assist</div><div class="tog-sub">Hỗ trợ kéo tâm tự nhiên</div></div>
+        <label class="toggle"><input type="checkbox" id="assist-tog" checked onchange="toggleAssist(this)"><span class="tog-track"></span></label>
+      </div>
+      <div class="opt-section" id="assist-opts">
+        <div class="opt-row"><span>Phạm vi hỗ trợ</span><div class="opt-btns"><button class="opt-btn active" onclick="setOpt(this,'.assist-r')">Thấp</button><button class="opt-btn assist-r" onclick="setOpt(this,'.assist-r')">Trung</button><button class="opt-btn assist-r" onclick="setOpt(this,'.assist-r')">Cao</button></div></div>
+        <div class="opt-row"><span>Ưu tiên mục tiêu</span><div class="opt-btns"><button class="opt-btn active" onclick="setOpt(this,'.tgt-r')">Đầu</button><button class="opt-btn tgt-r" onclick="setOpt(this,'.tgt-r')">Ngực</button><button class="opt-btn tgt-r" onclick="setOpt(this,'.tgt-r')">Auto</button></div></div>
+        <div class="opt-row"><span>Kích hoạt khi</span><div class="opt-btns"><button class="opt-btn active" onclick="setOpt(this,'.when-r')">ADS</button><button class="opt-btn when-r" onclick="setOpt(this,'.when-r')">Luôn</button><button class="opt-btn when-r" onclick="setOpt(this,'.when-r')">Scope</button></div></div>
+      </div>
+    </div>
+
+    <div class="aim-sec">🖐️ AIM HOLD</div>
+    <div class="hold-card">
+      <div class="tog-row">
+        <div class="tog-info"><div class="tog-title">Aim Hold Mode</div><div class="tog-sub">Giữ tâm khi bắn liên tục</div></div>
+        <label class="toggle"><input type="checkbox" id="hold-tog" onchange="toggleHold(this)"><span class="tog-track"></span></label>
+      </div>
+      <div id="hold-opts" style="display:none;">
+        <div class="sr-row" style="margin-top:12px"><div class="sr-label">Hold strength <span class="sr-val" id="sv-hold">70</span></div><input type="range" min="0" max="100" value="70" class="sr-input" style="width:100%" oninput="updateSens('hold',this.value)"></div>
+        <div style="margin-top:10px"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);margin-bottom:6px">Chế độ giữ:</div><div class="opt-btns" style="display:flex;gap:6px"><button class="opt-btn active" onclick="setOpt(this,'.hm-r')">Nhấn giữ</button><button class="opt-btn hm-r" onclick="setOpt(this,'.hm-r')">Bật/Tắt</button><button class="opt-btn hm-r" onclick="setOpt(this,'.hm-r')">Tự động</button></div></div>
+      </div>
+    </div>
+
+    <div class="aim-sec">📐 SENSITIVITY</div>
+    <div class="sens-preset-grid">
+      <button class="sp-btn active" onclick="setSensPreset(this,'balanced')"><span class="sp-ico">⚖️</span><span class="sp-name">Cân bằng</span><span class="sp-desc">Balanced</span></button>
+      <button class="sp-btn" onclick="setSensPreset(this,'sniper')"><span class="sp-ico">🎯</span><span class="sp-name">Sniper</span><span class="sp-desc">Ít giật</span></button>
+      <button class="sp-btn" onclick="setSensPreset(this,'rush')"><span class="sp-ico">⚡</span><span class="sp-name">Rush</span><span class="sp-desc">Nhanh</span></button>
+      <button class="sp-btn" onclick="setSensPreset(this,'pro')"><span class="sp-ico">👑</span><span class="sp-name">Pro</span><span class="sp-desc">Chuẩn</span></button>
+    </div>
+    <div class="sens-sliders">
+      <div class="sr-row"><div class="sr-label">Tổng quát <span class="sr-val" id="sv-g">100</span></div><input type="range" min="1" max="200" value="100" id="sr-g" class="sr-input" style="width:100%" oninput="updateSens('g',this.value)"></div>
+      <div class="sr-row"><div class="sr-label">ADS <span class="sr-val" id="sv-ads">80</span></div><input type="range" min="1" max="200" value="80" id="sr-ads" class="sr-input" style="width:100%" oninput="updateSens('ads',this.value)"></div>
+      <div class="sr-row"><div class="sr-label">Scope 2x <span class="sr-val" id="sv-s2">65</span></div><input type="range" min="1" max="200" value="65" id="sr-s2" class="sr-input" style="width:100%" oninput="updateSens('s2',this.value)"></div>
+      <div class="sr-row"><div class="sr-label">Scope 4x <span class="sr-val" id="sv-s4">50</span></div><input type="range" min="1" max="200" value="50" id="sr-s4" class="sr-input" style="width:100%" oninput="updateSens('s4',this.value)"></div>
+      <div class="sr-row"><div class="sr-label">Scope 8x <span class="sr-val" id="sv-s8">35</span></div><input type="range" min="1" max="200" value="35" id="sr-s8" class="sr-input" style="width:100%" oninput="updateSens('s8',this.value)"></div>
+    </div>
+
+    <div class="aim-sec">💀 HEAD LOCK</div>
+    <div class="hlcard">
+      <div class="hl-visual">
+        <div class="hl-target">
+          <div class="hl-head"></div>
+          <div class="hl-cross hl-cross-h"></div>
+          <div class="hl-cross hl-cross-v"></div>
+          <div class="hl-ring" id="hl-ring"></div>
+        </div>
+        <div class="hl-right">
+          <div class="hl-tog-row">
+            <div><div class="tog-title">Head Lock</div><div class="tog-sub">Khoá tâm vào đầu</div></div>
+            <label class="toggle"><input type="checkbox" id="hl-tog" onchange="toggleHL(this)"><span class="tog-track"></span></label>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);margin-top:10px">Cấp độ bám:</div>
+          <div class="hl-lvl-row">
+            <button class="hl-lvl active" onclick="setHLvl(this,1)">Lv1</button>
+            <button class="hl-lvl" onclick="setHLvl(this,2)">Lv2</button>
+            <button class="hl-lvl" onclick="setHLvl(this,3)">Lv3</button>
+            <button class="hl-lvl" onclick="setHLvl(this,4)">Lv4</button>
+            <button class="hl-lvl" onclick="setHLvl(this,5)">MAX</button>
+          </div>
+        </div>
+      </div>
+      <div class="hl-stats">
+        <div class="hl-stat"><span>Zone</span><span class="hl-stat-val" id="hl-zone">±20px</span></div>
+        <div class="hl-stat"><span>Speed</span><span class="hl-stat-val" id="hl-speed">Nhẹ</span></div>
+        <div class="hl-stat"><span>Accuracy</span><span class="hl-stat-val" id="hl-acc">85%</span></div>
+      </div>
+    </div>
+
+    <div class="aim-sec">🔄 GYROSCOPE</div>
+    <div class="gyro-card">
+      <div class="tog-row">
+        <div class="tog-info"><div class="tog-title">Gyroscope Aim</div><div class="tog-sub">Nghiêng máy để kéo tâm</div></div>
+        <label class="toggle"><input type="checkbox" id="gyro-tog" onchange="toggleGyro(this)"><span class="tog-track"></span></label>
+      </div>
+      <div id="gyro-opts" style="display:none;margin-top:14px">
+        <div class="sr-row"><div class="sr-label">Nhạy dọc <span class="sr-val" id="sv-gv">60</span></div><input type="range" min="1" max="150" value="60" class="sr-input" style="width:100%" oninput="updateSens('gv',this.value)"></div>
+        <div class="sr-row"><div class="sr-label">Nhạy ngang <span class="sr-val" id="sv-gh">55</span></div><input type="range" min="1" max="150" value="55" class="sr-input" style="width:100%" oninput="updateSens('gh',this.value)"></div>
+        <div style="margin-top:8px"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);margin-bottom:6px">Kích hoạt:</div><div style="display:flex;gap:6px"><button class="opt-btn active" onclick="setOpt(this,'.gm-r')">Luôn bật</button><button class="opt-btn gm-r" onclick="setOpt(this,'.gm-r')">Khi ADS</button><button class="opt-btn gm-r" onclick="setOpt(this,'.gm-r')">Khi scope</button></div></div>
+      </div>
+    </div>
+
+    <div class="aim-sec">⚡ TOUCH LATENCY</div>
+    <div class="tlcard">
+      <div class="tl-row">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+          <svg viewBox="0 0 80 50" width="86">
+            <path d="M10 45 A35 35 0 0 1 70 45" fill="none" stroke="rgba(0,229,204,0.08)" stroke-width="6" stroke-linecap="round"/>
+            <path d="M10 45 A35 35 0 0 1 70 45" fill="none" stroke="#00e5cc" stroke-width="6" stroke-linecap="round" stroke-dasharray="110" id="tl-arc" stroke-dashoffset="40" style="filter:drop-shadow(0 0 4px #00e5cc)"/>
+          </svg>
+          <div class="tl-gauge-val" id="tl-val">12ms</div>
+        </div>
+        <div>
+          <div class="tl-info-title">Touch Latency</div>
+          <div class="tl-info-sub" id="tl-status">TỐT — Good</div>
+          <button class="tl-opt-btn" onclick="optimizeTL()">⚡ TỐI ƯU NGAY</button>
+        </div>
+      </div>
+      <div class="tl-opts">
+        <div class="tl-opt-row"><span>Multi-touch nhanh</span><label class="toggle"><input type="checkbox" checked onchange="showToast('Multi-touch '+(this.checked?'bật':'tắt'))"><span class="tog-track"></span></label></div>
+        <div class="tl-opt-row"><span>Lọc chạm nhầm</span><label class="toggle"><input type="checkbox" checked onchange="showToast('Lọc chạm '+(this.checked?'bật':'tắt'))"><span class="tog-track"></span></label></div>
+        <div class="tl-opt-row"><span>Tăng tốc điểm chạm</span><label class="toggle"><input type="checkbox" onchange="showToast('Touch boost '+(this.checked?'bật':'tắt'))"><span class="tog-track"></span></label></div>
+      </div>
+    </div>
+
+    <div class="aim-sec">✋ LAYOUT NGÓN TAY</div>
+    <div class="layout-row">
+      <button class="layout-btn" onclick="setLayout(this,'2')">
+        <div class="layout-fingers"><div class="finger f-thumb"></div><div class="finger f-thumb"></div></div>
+        <span class="layout-name">2 Ngón</span><span class="layout-desc">Người mới</span>
+      </button>
+      <button class="layout-btn" onclick="setLayout(this,'3')">
+        <div class="layout-fingers"><div class="finger f-thumb"></div><div class="finger f-index"></div><div class="finger f-thumb"></div></div>
+        <span class="layout-name">3 Ngón</span><span class="layout-desc">Phổ biến</span>
+      </button>
+      <button class="layout-btn active" onclick="setLayout(this,'4')">
+        <div class="layout-fingers"><div class="finger f-thumb"></div><div class="finger f-index"></div><div class="finger f-index"></div><div class="finger f-thumb"></div></div>
+        <span class="layout-name">4 Ngón</span><span class="layout-desc">Pro aim</span>
+      </button>
+    </div>
+    <div class="layout-tip" id="layout-tip">
+      <div class="tip-title">💡 Mẹo 4 ngón:</div>
+      <div class="tip-text">Cái trái: di chuyển · Cái phải: bắn · Trỏ trái: nhảy · Trỏ phải: scope</div>
+    </div>
+
+    <button class="apply-btn" onclick="applyAim()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+      ÁP DỤNG TẤT CẢ CÀI ĐẶT
+    </button>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="page" id="page-settings">
+  <div class="pscroll">
+    <div class="sec-header"><div class="sec-title">SETTINGS</div><div class="sec-sub">// Cài đặt hệ thống</div></div>
+    <div class="set-group">
+      <div class="set-group-title">Appearance / Giao diện</div>
+      <div class="set-item"><div><div class="set-item-name">Neon Glow</div><div class="set-item-desc">Hiệu ứng sáng Cyber</div></div><label class="toggle"><input type="checkbox" checked onchange="showToast('Neon '+(this.checked?'ON':'OFF'))"><span class="tog-track"></span></label></div>
+      <div class="set-item"><div><div class="set-item-name">Grain Overlay</div><div class="set-item-desc">Hiệu ứng hạt nhiễu</div></div><label class="toggle"><input type="checkbox" checked onchange="showToast('Grain '+(this.checked?'ON':'OFF'))"><span class="tog-track"></span></label></div>
+      <div class="set-item"><div><div class="set-item-name">Grid Background</div><div class="set-item-desc">Lưới nền Cyber</div></div><label class="toggle"><input type="checkbox" checked onchange="showToast('Grid '+(this.checked?'ON':'OFF'))"><span class="tog-track"></span></label></div>
+    </div>
+    <div class="set-group">
+      <div class="set-group-title">Performance / Hiệu năng</div>
+      <div class="set-item"><div><div class="set-item-name">Auto Boost</div><div class="set-item-desc">Tự động tối ưu khi mở</div></div><label class="toggle"><input type="checkbox" onchange="showToast('Auto boost '+(this.checked?'ON':'OFF'))"><span class="tog-track"></span></label></div>
+      <div class="set-item"><div><div class="set-item-name">Background Kill</div><div class="set-item-desc">Tắt app nền</div></div><label class="toggle"><input type="checkbox" onchange="showToast('BG kill '+(this.checked?'ON':'OFF'))"><span class="tog-track"></span></label></div>
+      <div class="set-item"><div><div class="set-item-name">CPU Governor</div><div class="set-item-desc">Chế độ CPU mặc định</div></div><select class="set-select" onchange="showToast('Governor: '+this.value)"><option>Performance</option><option selected>Balanced</option><option>Powersave</option></select></div>
+    </div>
+    <div class="set-group">
+      <div class="set-group-title">Sound & Notifications</div>
+      <div class="set-item"><div><div class="set-item-name">Sound Effects</div><div class="set-item-desc">Âm thanh thao tác</div></div><label class="toggle"><input type="checkbox" id="snd" checked onchange="showToast('Sound '+(this.checked?'ON':'OFF'))"><span class="tog-track"></span></label></div>
+      <div class="set-item"><div><div class="set-item-name">Haptic Feedback</div><div class="set-item-desc">Rung xúc giác</div></div><label class="toggle"><input type="checkbox" checked onchange="showToast('Haptic '+(this.checked?'ON':'OFF'))"><span class="tog-track"></span></label></div>
+    </div>
+    <div class="set-group">
+      <div class="set-group-title">About / Thông tin</div>
+      <div class="set-item"><span class="set-item-name">App</span><span class="set-item-val">SperNew Cyber X</span></div>
+      <div class="set-item"><span class="set-item-name">Version</span><span class="set-item-val">4.0.0 Cyber</span></div>
+      <div class="set-item"><span class="set-item-name">Tier</span><span class="set-item-val" id="about-tier">FREE</span></div>
+      <div class="set-item" style="cursor:pointer" onclick="showKeyModal()"><span class="set-item-name">VIP Key</span><span class="set-item-val" style="color:var(--teal)">NHẬP KEY →</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="page" id="page-admin">
+  <div class="pscroll">
+    <div class="admin-hero">
+      <div class="admin-hero-bg"></div>
+      <div class="admin-scan"></div>
+      <div class="admin-tag">ADMIN · SPERNEW</div>
+      <div class="admin-page-title">THÔNG TIN<br><em>ADMIN</em></div>
+    </div>
+    <div class="admin-card">
+      <div class="admin-ring-o"></div><div class="admin-ring-m"></div>
+      <div class="admin-frame">
+        <div class="admin-inner">
+          <img src="https://sf-static.upanhlaylink.com/img/image_2026032908b0dc0c6571f1e01cbd954b962b09d1.jpg" alt="Admin" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="admin-name">SperNew Admin</div>
+      <div class="admin-status"><span class="admin-dot"></span><span class="admin-status-txt">Online · Phản hồi nhanh</span></div>
+      <div class="admin-role">⚡ OWNER & DEVELOPER</div>
+    </div>
+    <div class="contact-label">LIÊN HỆ · CONTACT</div>
+    <div class="contacts">
+      <a class="contact-card zalo" href="https://zalo.me/0336854208" target="_blank">
+        <div class="c-ico z"><svg width="26" height="26" viewBox="0 0 50 50" fill="none"><rect width="50" height="50" rx="12" fill="#0068FF"/><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="22" font-weight="bold" font-family="Arial">Z</text></svg></div>
+        <div class="c-info"><div class="c-platform">Zalo</div><div class="c-handle">@SpernewAdmin</div><div class="c-desc">Chat trực tiếp · Mua key VIP</div></div>
+        <div class="c-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"/></svg></div>
+      </a>
+      <a class="contact-card fb" href="https://www.facebook.com/share/1CjgQCh4n2/?mibextid=wwXIfr" target="_blank">
+        <div class="c-ico f"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="6" fill="#1877F2"/><path d="M16 4h-2a4 4 0 00-4 4v2H8v3h2v7h3v-7h2.5l.5-3h-3V8a1 1 0 011-1h2V4z" fill="white"/></svg></div>
+        <div class="c-info"><div class="c-platform">Facebook</div><div class="c-handle">SperNew Official</div><div class="c-desc">Fanpage · Tin tức · Update</div></div>
+        <div class="c-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"/></svg></div>
+      </a>
+      <a class="contact-card tg" href="https://t.me/spernew" target="_blank">
+        <div class="c-ico t"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="6" fill="#229ED9"/><path d="M20 4L3 11l6 2 2 6 3-4 5 3 1-14z" fill="white" opacity=".9"/></svg></div>
+        <div class="c-info"><div class="c-platform">Telegram</div><div class="c-handle">@SpernewAdmin</div><div class="c-desc">Kênh thông báo · Support</div></div>
+        <div class="c-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"/></svg></div>
+      </a>
+    </div>
+    <div class="admin-stats">
+      <div class="astat"><div class="astat-val">500+</div><div class="astat-lbl">Người dùng</div></div>
+      <div class="astat-div"></div>
+      <div class="astat"><div class="astat-val">24/7</div><div class="astat-lbl">Hỗ trợ</div></div>
+      <div class="astat-div"></div>
+      <div class="astat"><div class="astat-val">v4.0</div><div class="astat-lbl">Phiên bản</div></div>
+    </div>
+    <div class="admin-note">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="9" stroke="#00e5cc" stroke-width="2"/><path d="M12 8v4M12 16h.01" stroke="#00e5cc" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>Liên hệ admin để mua key VIP, báo lỗi hoặc yêu cầu tính năng mới. Phản hồi trong vòng 1–6 giờ.</span>
+    </div>
+  </div>
+</div>
+```
+
+  </div><!-- end pages -->
+
+  <!-- BOTTOM NAV -->
+
+  <div class="bnav">
+    <button class="nb active" data-page="home" onclick="switchPage('home')">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2"/><path d="M9 22V12h6v10" stroke="currentColor" stroke-width="2"/></svg>
+      <span>Home</span>
+    </button>
+    <button class="nb" data-page="features" onclick="switchPage('features')">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2"/></svg>
+      <span>Features</span>
+    </button>
+    <button class="nb" data-page="stats" onclick="switchPage('stats')">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span>Stats</span>
+    </button>
+    <button class="nb" data-page="vip" onclick="switchPage('vip')">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" stroke="currentColor" stroke-width="2"/></svg>
+      <span>VIP</span>
+    </button>
+    <button class="nb" data-page="aimlab" onclick="switchPage('aimlab')">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><line x1="12" y1="3" x2="12" y2="7" stroke="currentColor" stroke-width="2"/><line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2"/><line x1="3" y1="12" x2="7" y2="12" stroke="currentColor" stroke-width="2"/><line x1="17" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2"/></svg>
+      <span>AIM</span>
+    </button>
+    <button class="nb" data-page="admin" onclick="switchPage('admin')">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>Admin</span>
+    </button>
+    <button class="nb" data-page="settings" onclick="switchPage('settings')">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke="currentColor" stroke-width="2"/></svg>
+      <span>Settings</span>
+    </button>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <div id="boost-ov" class="boost-ov" style="display:none">
+    <div class="bov-inner">
+      <div class="bov-ring"></div>
+      <div class="bov-text" id="bov-txt">BOOSTING...</div>
+      <div class="bov-pct" id="bov-pct">0%</div>
+    </div>
+  </div>
+</div>
+
+<!-- KEY MODAL -->
+
+<div id="key-modal">
+  <div class="km-box">
+    <div class="km-corner tl"></div><div class="km-corner tr"></div>
+    <div class="km-corner bl"></div><div class="km-corner br"></div>
+    <span class="km-icon">🔑</span>
+    <div class="km-title">NHẬP KEY VIP</div>
+    <div class="km-sub">Liên hệ admin để lấy key kích hoạt</div>
+    <input id="key-input" placeholder="Nhập access key..." onkeydown="if(event.key==='Enter')activateKey()">
+    <div id="key-msg"></div>
+    <button id="act-btn" onclick="activateKey()">⚡ KÍCH HOẠT</button>
+    <div class="km-lock">⚡ 1 KEY — 1 THIẾT BỊ</div>
+  </div>
+</div>
+
+<script>
+// ── Anti-copy ──
+['contextmenu','selectstart','dragstart','copy','cut'].forEach(ev=>document.addEventListener(ev,e=>e.preventDefault(),{passive:false}));
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&['a','c','x'].includes(e.key.toLowerCase()))e.preventDefault();});
+
+// ── Audio ──
+let audioCtx=null;
+function getACtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+function playSound(type){
+  try{
+    const s=document.getElementById('snd');if(s&&!s.checked)return;
+    const ctx=getACtx(),g=ctx.createGain();g.connect(ctx.destination);
+    const o=ctx.createOscillator();o.connect(g);
+    if(type==='click'){o.type='sine';o.frequency.setValueAtTime(540,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(280,ctx.currentTime+.08);g.gain.setValueAtTime(.1,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.1);o.start();o.stop(ctx.currentTime+.1);}
+    else if(type==='on'){o.type='square';o.frequency.setValueAtTime(350,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(600,ctx.currentTime+.12);g.gain.setValueAtTime(.06,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.15);o.start();o.stop(ctx.currentTime+.15);}
+    else if(type==='off'){o.type='square';o.frequency.setValueAtTime(300,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(150,ctx.currentTime+.1);g.gain.setValueAtTime(.05,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.12);o.start();o.stop(ctx.currentTime+.12);}
+    else if(type==='boost'){o.type='sawtooth';o.frequency.setValueAtTime(120,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(700,ctx.currentTime+.5);g.gain.setValueAtTime(.08,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.5);o.start();o.stop(ctx.currentTime+.5);}
+    else if(type==='success'){[380,480,600].forEach((f,i)=>{const oo=ctx.createOscillator(),gg=ctx.createGain();oo.type='sine';oo.frequency.value=f;gg.gain.setValueAtTime(0,ctx.currentTime+i*.09);gg.gain.linearRampToValueAtTime(.07,ctx.currentTime+i*.09+.04);gg.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.09+.22);oo.connect(gg);gg.connect(ctx.destination);oo.start(ctx.currentTime+i*.09);oo.stop(ctx.currentTime+i*.09+.25);});}
+    else if(type==='nav'){o.type='sine';o.frequency.setValueAtTime(280,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(420,ctx.currentTime+.06);g.gain.setValueAtTime(.06,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.08);o.start();o.stop(ctx.currentTime+.08);}
+  }catch(e){}
+}
+
+// ── Ripple ──
+function addRipple(el,e){
+  const r=document.createElement('span');r.className='ripple';
+  const rect=el.getBoundingClientRect();
+  r.style.cssText=`left:${(e.clientX||rect.left+rect.width/2)-rect.left}px;top:${(e.clientY||rect.top+rect.height/2)-rect.top}px`;
+  el.appendChild(r);setTimeout(()=>r.remove(),600);
+}
+document.addEventListener('click',e=>{
+  const el=e.target.closest('button,.nb,.tile,.lock-btn,.sp-btn,.layout-btn');
+  if(!el)return;
+  if(el.classList.contains('nb'))playSound('nav');
+  else if(el.id==='boost-btn'||el.classList.contains('apply-btn')||el.classList.contains('aim-apply-mini'))playSound('boost');
+  else playSound('click');
+  if(el.tagName==='BUTTON'||el.classList.contains('nb'))addRipple(el,e);
+},true);
+document.addEventListener('change',e=>{if(e.target.type==='checkbox')playSound(e.target.checked?'on':'off');},true);
+
+// ── SPLASH ──
+const LOGS=['INITIALIZING CYBER ENGINE...','LOADING AI OPTIMIZER...','SCANNING DEVICE PROFILE...','CALIBRATING AIM ENGINE...','BYPASSING LIMITS...','CYBER X READY.'];
+window.addEventListener('DOMContentLoaded',()=>{
+  const fill=document.getElementById('sf'),log=document.getElementById('sl');
+  let pct=0,mi=0;
+  const iv=setInterval(()=>{
+    pct+=Math.random()*14+5;if(pct>100)pct=100;
+    fill.style.width=pct+'%';
+    const ni=Math.floor((pct/100)*(LOGS.length-1));
+    if(ni!==mi){mi=ni;log.textContent=LOGS[Math.min(mi,LOGS.length-1)];}
+    if(pct>=100){clearInterval(iv);log.textContent='CYBER X READY.';setTimeout(hideSplash,600);}
+  },180);
+});
+function hideSplash(){
+  const s=document.getElementById('splash'),a=document.getElementById('app');
+  s.style.transition='opacity .6s ease';s.style.opacity='0';
+  setTimeout(()=>{s.style.display='none';a.style.display='flex';initApp();},600);
+}
+
+// ── APP INIT ──
+function initApp(){buildFeats();startStats();startGraphs();animScore(78);checkKey();}
+
+// ── NAV ──
+function switchPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id)?.classList.add('active');
+  document.querySelectorAll(`[data-page="${id}"]`).forEach(b=>b.classList.add('active'));
+}
+
+// ── FEATURES ──
+const FREE_FEATS=[
+  {ico:'⚡',name:'FPS Stabilizer',desc:'Ổn định khung hình'},
+  {ico:'🧹',name:'RAM Cleaner',desc:'Dọn RAM nhanh'},
+  {ico:'🌡️',name:'Thermal Monitor',desc:'Theo dõi nhiệt độ'},
+  {ico:'🌐',name:'Network Monitor',desc:'Theo dõi kết nối'},
+  {ico:'🔋',name:'Battery Saver',desc:'Tiết kiệm pin'},
+  {ico:'💀',name:'Deep Clean',desc:'Xóa cache hệ thống'},
+];
+const VIP_FEATS=[
+  {ico:'🎯',name:'AI Aim Engine',desc:'Tối ưu điều khiển AI'},
+  {ico:'⚡',name:'Turbo Frame',desc:'Tăng FPS không giới hạn'},
+  {ico:'🔥',name:'Thermal AI Guard',desc:'AI kiểm soát nhiệt'},
+  {ico:'🌐',name:'Net Accelerator',desc:'Giảm ping game'},
+  {ico:'🔊',name:'Sound Enhancer',desc:'Tăng âm thanh định hướng'},
+  {ico:'📊',name:'Deep Analytics',desc:'Phân tích chuyên sâu'},
+  {ico:'💀',name:'Cyber Hack Mode',desc:'Tối ưu cấp hệ thống'},
+];
+function buildFeats(){buildList('fl-free',FREE_FEATS,false);buildList('fl-vip',VIP_FEATS,true);}
+function buildList(id,list,vip){
+  const c=document.getElementById(id);if(!c)return;c.innerHTML='';
+  list.forEach(f=>{
+    const d=document.createElement('div');d.className='feat-item';
+    d.innerHTML=`<div class="feat-ico">${f.ico}</div><div class="feat-body"><div class="feat-name">${f.name}</div><div class="feat-desc">${f.desc}</div></div><label class="toggle"><input type="checkbox" ${vip?'':'onchange="onFT(this,\''+f.name+'\')"'}><span class="tog-track"></span></label>`;
+    c.appendChild(d);
+  });
+}
+function onFT(el,name){showToast(el.checked?`✅ ${name} ON`:`❌ ${name} OFF`);}
+
+// ── STATS SIMULATION ──
+const hist={fps:[],cpu:[],ram:[],temp:[]};
+let fT=60,cT=35,rT=55,tT=42;
+function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function lerp(a,b,t){return a+(b-a)*t;}
+function startStats(){updateStats();setInterval(updateStats,1200);setInterval(updateBattleBars,2000);}
+function updateStats(){
+  fT=lerp(fT,rand(45,90),.3);cT=lerp(cT,rand(20,75),.3);rT=lerp(rT,rand(40,80),.3);tT=lerp(tT,rand(35,65),.3);
+  const fps=Math.round(fT),cpu=Math.round(cT),ram=Math.round(rT),temp=Math.round(tT);
+  setMetric('fps',fps,'',fps>=60?'SMOOTH ✓':fps>=45?'NORMAL':'LOW!',(fps/120)*100,'ok',fps>=60,'warn',fps>=45);
+  setMetric('cpu',cpu,'%',cpu<50?'NORMAL ✓':cpu<70?'HIGH':'CRITICAL!',cpu,'ok',cpu<50,'warn',cpu<70);
+  setMetric('ram',ram,'%',ram<60?'OK ✓':ram<75?'HIGH':'FULL!',ram,'ok',ram<60,'warn',ram<75);
+  setMetric('temp',temp,'°',temp<45?'COOL ✓':temp<55?'WARM':'HOT!',temp/80*100,'ok',temp<45,'warn',temp<55);
+  const sc=Math.min(99,Math.round(((fps/90)*30+((100-cpu)/100)*25+((100-ram)/100)*25+((80-temp)/80)*20)));
+  document.getElementById('score-num').textContent=sc;
+  document.getElementById('score-grade').textContent=sc>=80?'EXCELLENT ◈ Xuất sắc':sc>=65?'GOOD ◈ Tốt':sc>=50?'NORMAL ◈ Bình thường':'LOW ◈ Cần boost!';
+  animScore(sc);
+  document.getElementById('rt-fps').textContent=fps;
+  document.getElementById('rt-cpu').textContent=cpu+'%';
+  document.getElementById('rt-ram').textContent=ram+'%';
+  document.getElementById('rt-temp').textContent=temp+'°';
+  ['fps','cpu','ram','temp'].forEach(k=>{
+    const v=k==='fps'?fps:k==='cpu'?cpu:k==='ram'?ram:temp;
+    hist[k].push(v);if(hist[k].length>20)hist[k].shift();
+    updateMMA(k);
+  });
+  const nd=(Math.random()*5+.5).toFixed(1)+' MB/s';
+  const nu=(Math.random()*1+.1).toFixed(1)+' MB/s';
+  const np=rand(8,45)+' ms';
+  ['net-d','net-u','net-p'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.textContent=[nd,nu,np][i];});
+  ['s-net-d','s-net-u','s-net-p'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.textContent=[nd,nu,np][i];});
+}
+function setMetric(k,v,sfx,st,pct){
+  const ev=document.getElementById('val-'+k),eb=document.getElementById('bar-'+k),es=document.getElementById('st-'+k);
+  if(ev)ev.innerHTML=v+(sfx?`<span class="m-unit">${sfx}</span>`:'');
+  if(eb)eb.style.width=Math.min(100,pct)+'%';
+  if(es){es.textContent=st;es.className='m-status '+(pct<60?'ok':pct<80?'warn':'crit');}
+}
+function updateMMA(k){
+  const arr=hist[k];if(!arr.length)return;
+  const mn=Math.min(...arr),mx=Math.max(...arr),av=Math.round(arr.reduce((a,b)=>a+b,0)/arr.length);
+  const sfx=k==='fps'?'':k==='temp'?'°':'%';
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v+sfx;};
+  set(`r-${k}-mn`,mn);set(`r-${k}-av`,av);set(`r-${k}-mx`,mx);
+  if(k==='temp'){set('r-tmp-mn',mn);set('r-tmp-av',av);set('r-tmp-mx',mx);}
+}
+function updateBattleBars(){
+  [[1,'bb1','bb1v'],[2,'bb2','bb2v'],[3,'bb3','bb3v'],[4,'bb4','bb4v']].forEach(([_,bid,vid])=>{
+    const v=rand(62,97);
+    const b=document.getElementById(bid),vv=document.getElementById(vid);
+    if(b)b.style.width=v+'%';if(vv)vv.textContent=v+'%';
+  });
+}
+
+// ── GRAPHS ──
+const GCOL={fps:'#00e5cc',cpu:'#f5c518',ram:'#7b5ea7',temp:'#ff4dbd'};
+function startGraphs(){
+  ['fps','cpu','ram','temp'].forEach(k=>{
+    const c=document.getElementById('g-'+k);if(!c)return;
+    for(let i=0;i<20;i++){const b=document.createElement('div');b.className='gbar';b.style.cssText=`background:${GCOL[k]}33;height:2px;`;c.appendChild(b);}
+  });
+  setInterval(()=>{
+    ['fps','cpu','ram','temp'].forEach(k=>{
+      const c=document.getElementById('g-'+k);if(!c)return;
+      const bars=c.querySelectorAll('.gbar'),h=hist[k];if(!h.length)return;
+      const mx=k==='fps'?120:k==='temp'?80:100;
+      bars.forEach((b,i)=>{
+        const v=h[i]||0,pct=(v/mx)*100,last=i===h.length-1;
+        b.style.height=Math.max(2,pct*.38)+'px';
+        b.style.background=last?GCOL[k]:GCOL[k]+'33';
+        b.style.boxShadow=last?`0 0 4px ${GCOL[k]}`:'none';
+      });
+    });
+  },1200);
+}
+
+// ── SCORE ──
+function animScore(s){
+  const c=document.getElementById('score-circ');if(!c)return;
+  const circ=2*Math.PI*30;
+  c.style.strokeDashoffset=circ-(s/100)*circ;
+  c.style.stroke=s>=80?'#00e5cc':s>=60?'#f5c518':'#ff4dbd';
+}
+
+// ── BOOST ──
+function runBoost(){
+  const ov=document.getElementById('boost-ov'),txt=document.getElementById('bov-txt'),pct=document.getElementById('bov-pct');
+  ov.style.display='flex';let p=0;
+  const msgs=['SCANNING MEMORY...','INJECTING TWEAKS...','CLEARING CACHE...','OVERCLOCKING...','CYBER BOOST DONE!'];
+  const iv=setInterval(()=>{
+    p+=rand(8,18);if(p>100)p=100;pct.textContent=p+'%';
+    txt.textContent=msgs[Math.min(Math.floor(p/100*(msgs.length-1)),msgs.length-1)];
+    if(p>=100){clearInterval(iv);setTimeout(()=>{ov.style.display='none';showToast('⚡ Boost done! System optimized.');},500);}
+  },200);
+}
+
+// ── QUICK ACTIONS ──
+const QA_MSGS={clear:'🧹 RAM cleared — 512MB freed',cool:'❄️ Cooling activated',boost:'⚡ FPS boost applied',net:'🌐 Net optimized — ping ↓',junk:'💀 Deep clean — 1.2GB freed'};
+function qa(type){showToast(QA_MSGS[type]||'Done!');}
+
+// ── POWER MODE ──
+function setPmode(el,mode){
+  document.querySelectorAll('.pmode').forEach(p=>p.classList.remove('active'));el.classList.add('active');
+  const m={eco:'🌿 ECO — Tiết kiệm pin',bal:'⚖️ Balanced mode',perf:'⚡ Performance mode',max:'💀 MAX — ALL IN!'};
+  showToast(m[mode]);
+}
+
+// ── TOAST ──
+let toastT=null;
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  if(toastT)clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+// ── TERMINAL ──
+const TLOGS=['[SYS] Cyber Engine v4.0 loaded','[OK] Device fingerprint: acquired','[OK] Performance scanner active','[>>] Overclocking CPU governor','[OK] FPS unlock patch applied','[>>] Scanning network latency','[OK] Aim engine calibrated','[>>] Memory leak sealed','[SYS] All systems nominal','[>>] Live monitoring...'];
+let termIdx=0;
+function runTerminal(){
+  const els=[document.getElementById('term-home'),document.getElementById('term-live')];
+  setInterval(()=>{
+    const log=TLOGS[termIdx%TLOGS.length];termIdx++;
+    els.forEach(el=>{
+      if(!el)return;
+      el.querySelectorAll('.active').forEach(d=>d.className='tline done');
+      const d=document.createElement('div');d.className='tline active';d.textContent=log;
+      el.appendChild(d);while(el.children.length>6)el.removeChild(el.firstChild);
+    });
+  },2500);
+}
+
+// ── AIM LAB ──
+const LOCK_DATA={v1:{r:'15px',s:'Rất nhẹ',p:'Ngực',l:'v1 — Nhẹ'},v2:{r:'25px',s:'Nhẹ',p:'Đầu + Ngực',l:'v2 — Vừa'},v3:{r:'35px',s:'Medium',p:'Đầu + Ngực',l:'v3 — Mạnh'},v4:{r:'55px',s:'Nhanh',p:'Đầu (MAX)',l:'v4 — MAX'}};
+function setLock(btn,v){
+  document.querySelectorAll('.lock-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  const d=LOCK_DATA[v];
+  document.getElementById('ld-r').textContent=d.r;document.getElementById('ld-s').textContent=d.s;document.getElementById('ld-p').textContent=d.p;
+  document.getElementById('aim-mode').textContent='Chế độ: AimLock '+d.l;
+  calcAimScore();showToast('🔒 AimLock '+d.l);
+}
+function updateSmooth(v){document.getElementById('sm-fill').style.width=v+'%';document.getElementById('sm-pct').textContent=v+'%';}
+function setSmooth(btn,v){document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const sl=document.querySelector('.smooth-card .sr-input');if(sl){sl.value=v;updateSmooth(v);}showToast('🪶 Smooth: '+btn.textContent);}
+function toggleAssist(el){document.getElementById('assist-opts').style.display=el.checked?'block':'none';showToast(el.checked?'🤖 Assist ON':'🤖 Assist OFF');calcAimScore();}
+function toggleHold(el){document.getElementById('hold-opts').style.display=el.checked?'block':'none';showToast(el.checked?'🖐️ Hold ON':'🖐️ Hold OFF');}
+function toggleHL(el){const r=document.getElementById('hl-ring');r.style.animation=el.checked?'lockPulse 1s infinite':'none';r.style.borderColor=el.checked?'#00e5cc':'#333';showToast(el.checked?'💀 Head Lock ON':'💀 Head Lock OFF');calcAimScore();}
+function toggleGyro(el){document.getElementById('gyro-opts').style.display=el.checked?'block':'none';showToast(el.checked?'🔄 Gyro ON':'🔄 Gyro OFF');}
+function setOpt(btn,sel){const p=btn.closest('.opt-btns,.gyro-mode-btns,[style*="display:flex"]');if(!p)return;p.querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');showToast('✓ '+btn.textContent);}
+const SENS_PRESETS={balanced:{g:100,ads:80,s2:65,s4:50,s8:35},sniper:{g:55,ads:42,s2:32,s4:26,s8:18},rush:{g:155,ads:120,s2:100,s4:80,s8:55},pro:{g:88,ads:70,s2:58,s4:44,s8:30}};
+function setSensPreset(btn,preset){
+  document.querySelectorAll('.sp-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  const p=SENS_PRESETS[preset];
+  Object.entries(p).forEach(([k,v])=>{const sl=document.getElementById('sr-'+k),vl=document.getElementById('sv-'+k);if(sl)sl.value=v;if(vl)vl.textContent=v;});
+  showToast('✅ Preset: '+btn.querySelector('.sp-name').textContent);
+}
+function updateSens(k,v){const el=document.getElementById('sv-'+k);if(el)el.textContent=v;}
+const HL_DATA=[{z:'±10px',s:'Rất nhẹ',a:'70%'},{z:'±18px',s:'Nhẹ',a:'78%'},{z:'±26px',s:'Trung',a:'85%'},{z:'±36px',s:'Nhanh',a:'91%'},{z:'±50px',s:'Tối đa',a:'97%'}];
+function setHLvl(btn,lv){
+  document.querySelectorAll('.hl-lvl').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  const d=HL_DATA[lv-1];document.getElementById('hl-zone').textContent=d.z;document.getElementById('hl-speed').textContent=d.s;document.getElementById('hl-acc').textContent=d.a;
+  showToast('💀 Lv'+lv+' — '+d.a);calcAimScore();
+}
+let tlLat=12;
+function optimizeTL(){
+  let l=tlLat;showToast('⚡ Tối ưu touch latency...');
+  const arc=document.getElementById('tl-arc'),v=document.getElementById('tl-val'),t=document.getElementById('tl-status');
+  const iv=setInterval(()=>{
+    l=Math.max(2,l-Math.random()*3);
+    if(arc)arc.style.strokeDashoffset=110-((l/50)*110);
+    if(v)v.textContent=Math.round(l)+'ms';
+    if(l<=3){clearInterval(iv);tlLat=Math.round(l);if(t)t.textContent='SIÊU NHANH — Xuất sắc';showToast('✅ Latency: '+tlLat+'ms');}
+  },180);
+}
+const LAYOUT_TIPS={'2':{t:'💡 2 ngón:',d:'Cả 2 ngón cái điều khiển — Dành cho người mới'},'3':{t:'💡 3 ngón:',d:'Cái trái: di chuyển · Cái phải: nhìn · Trỏ: bắn'},'4':{t:'💡 4 ngón:',d:'Cái trái: di chuyển · Cái phải: bắn · Trỏ trái: nhảy · Trỏ phải: scope — Pro +40%'}};
+function setLayout(btn,f){
+  document.querySelectorAll('.layout-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  const t=LAYOUT_TIPS[f],el=document.getElementById('layout-tip');
+  if(el&&t)el.innerHTML=`<div class="tip-title">${t.t}</div><div class="tip-text">${t.d}</div>`;
+  showToast('✋ Layout '+f+' ngón');
+}
+function calcAimScore(){
+  const al=document.querySelector('.lock-btn.active'),hl=document.getElementById('hl-tog'),as=document.getElementById('assist-tog');
+  let sc=60;
+  if(al){const v=al.id;sc+=v==='al-v4'?18:v==='al-v3'?12:v==='al-v2'?7:3;}
+  if(hl&&hl.checked)sc+=10;if(as&&as.checked)sc+=8;
+  sc=Math.min(99,sc);
+  const el=document.getElementById('aim-score');if(el)el.textContent=sc;
+}
+function applyAim(){
+  const ov=document.getElementById('boost-ov'),txt=document.getElementById('bov-txt'),pct=document.getElementById('bov-pct');
+  ov.style.display='flex';let p=0;
+  const msgs=['LOADING CONFIG...','AIM LOCK INJECT...','HEAD TRACK ON...','SENS TUNED...','AIM OPTIMIZED!'];
+  const iv=setInterval(()=>{
+    p+=rand(10,20);if(p>100)p=100;pct.textContent=p+'%';
+    txt.textContent=msgs[Math.min(Math.floor(p/100*(msgs.length-1)),msgs.length-1)];
+    if(p>=100){clearInterval(iv);setTimeout(()=>{ov.style.display='none';const b=document.getElementById('aim-badge');if(b)b.textContent='● OPTIMIZED';showToast('🎯 AIM settings applied!');calcAimScore();},400);}
+  },200);
+}
+
+// ── KEY SYSTEM ──
+const SB_URL='https://pjhdnvbssbcmbhepevcn.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBqaGRudmJzc2JjbWJoZXBldmNuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NTk4MzMsImV4cCI6MjA5MDIzNTgzM30.00MnFaNSNOJEHJO_OPbsMu45EftknC9o4_ukx5UHaE4';
+const SB_WRITE='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBqaGRudmJzc2JjbWJoZXBldmNuIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDY1OTgzMywiZXhwIjoyMDkwMjM1ODMzfQ.63NAUMk4y-25eyjy9n96BhK3grB0b_64Ng04wIsSDVM';
+function getDevId(){
+  let id=localStorage.getItem('dev_id');
+  if(!id){const raw=`${navigator.userAgent}|${screen.width}x${screen.height}|${navigator.language}`;let h=0;for(let i=0;i<raw.length;i++){h=((h<<5)-h)+raw.charCodeAt(i);h|=0;}id='d'+Math.abs(h).toString(16);localStorage.setItem('dev_id',id);}
+  return id;
+}
+function showKeyModal(){document.getElementById('key-modal').style.display='flex';document.getElementById('key-input').value='';document.getElementById('key-msg').textContent='';setTimeout(()=>document.getElementById('key-input').focus(),100);}
+async function activateKey(){
+  const key=document.getElementById('key-input').value.trim();
+  const msgEl=document.getElementById('key-msg'),btn=document.getElementById('act-btn'),devId=getDevId();
+  if(!key){msgEl.style.color='#ff6b6b';msgEl.textContent='⚠️ Vui lòng nhập key!';return;}
+  btn.textContent='CHECKING...';btn.disabled=true;msgEl.style.color='var(--text3)';msgEl.textContent='Đang xác thực...';
+  try{
+    const res=await fetch(`${SB_URL}/rest/v1/keys?key=eq.${encodeURIComponent(key)}&select=expires_at,is_active,device_id`,{headers:{apikey:SB_KEY,Authorization:`Bearer ${SB_KEY}`}});
+    const data=await res.json();
+    if(!data.length){msgEl.style.color='#ff6b6b';msgEl.textContent='❌ Key không tồn tại';}
+    else{
+      const{expires_at,is_active,device_id:bd}=data[0];
+      if(!is_active)msgEl.style.color='#ff6b6b',msgEl.textContent='❌ Key đã bị thu hồi';
+      else if(new Date(expires_at)<new Date())msgEl.style.color='#ff6b6b',msgEl.textContent='❌ Key đã hết hạn';
+      else if(bd&&bd!==devId)msgEl.style.color='#ff6b6b',msgEl.textContent='❌ Key đã dùng trên thiết bị khác';
+      else{
+        if(!bd){const br=await fetch(`${SB_URL}/rest/v1/keys?key=eq.${encodeURIComponent(key)}`,{method:'PATCH',headers:{apikey:SB_WRITE,Authorization:`Bearer ${SB_WRITE}`,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({device_id:devId})});if(!br.ok){msgEl.style.color='#ff6b6b';msgEl.textContent='❌ Không thể bind thiết bị';btn.textContent='⚡ KÍCH HOẠT';btn.disabled=false;return;}}
+        const exp=expires_at.slice(0,10);localStorage.setItem('vip_key',key);localStorage.setItem('vip_exp',exp);
+        msgEl.style.color='var(--teal)';msgEl.textContent='✅ Kích hoạt thành công!';playSound('success');
+        setTimeout(()=>{document.getElementById('key-modal').style.display='none';unlockVIP(exp);},900);
+      }
+    }
+  }catch(e){msgEl.style.color='#ff6b6b';msgEl.textContent='❌ Không kết nối được server';}
+  btn.textContent='⚡ KÍCH HOẠT';btn.disabled=false;
+}
+function unlockVIP(exp){
+  const vl=document.getElementById('fl-vip');if(vl){vl.classList.remove('locked');vl.querySelectorAll('input[type=checkbox]').forEach(el=>{el.onchange=function(){onFT(this,this.closest('.feat-item').querySelector('.feat-name').textContent);};});}
+  if(!document.getElementById('vip-banner')){const b=document.createElement('div');b.id='vip-banner';b.textContent=`⚡ VIP ACTIVE  ·  Hết hạn: ${exp}`;document.getElementById('app').prepend(b);}
+  showToast('⚡ VIP active! Expires '+exp);
+  document.getElementById('about-tier').textContent='VIP';
+  const tt=document.getElementById('tier-tag');tt.textContent='VIP';tt.classList.add('vip-tag');
+}
+async function checkKey(){
+  const key=localStorage.getItem('vip_key'),exp=localStorage.getItem('vip_exp');
+  if(!key||!exp||new Date(exp)<=new Date()){localStorage.removeItem('vip_key');localStorage.removeItem('vip_exp');showKeyModal();return;}
+  try{
+    const devId=getDevId(),res=await fetch(`${SB_URL}/rest/v1/keys?key=eq.${encodeURIComponent(key)}&select=expires_at,is_active,device_id`,{headers:{apikey:SB_KEY,Authorization:`Bearer ${SB_KEY}`}});
+    const data=await res.json();
+    if(!data.length||!data[0].is_active||new Date(data[0].expires_at)<new Date()||(data[0].device_id&&data[0].device_id!==devId)){localStorage.removeItem('vip_key');localStorage.removeItem('vip_exp');showKeyModal();return;}
+    unlockVIP(data[0].expires_at.slice(0,10));
+  }catch(e){unlockVIP(exp);}
+}
+
+// Start terminal after init
+function initApp(){buildFeats();startStats();startGraphs();animScore(78);checkKey();setTimeout(runTerminal,1000);}
+</script>
+
+</body>
+</html>
